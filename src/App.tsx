@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Header from "./components/Header/Header";
 import Hero from "./components/Hero/Hero";
 import Solution from "./components/Solution/Solution";
+import CoreTechnology from "./components/CoreTechnology/CoreTechnology";
 import "./App.css";
 
 const GlobalStyle = createGlobalStyle`
@@ -66,6 +67,7 @@ function App() {
 			<Header />
 			<Hero />
 			<Solution />
+			<CoreTechnology />
 			<ContentSection>
 				<SectionTitle>순환 경제로의 전환</SectionTitle>
 				<SectionText>
