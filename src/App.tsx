@@ -6,7 +6,9 @@ import Header from "./components/Header/Header";
 import Hero from "./components/Hero/Hero";
 import Solution from "./components/Solution/Solution";
 import CoreTechnology from "./components/CoreTechnology/CoreTechnology";
+import SolutionProcess from "./components/SolutionProcess/SolutionProcess";
 import "./App.css";
+import SuccessStories from "./components/SuccessStories/SuccessStories";
 
 const GlobalStyle = createGlobalStyle`
 	* {
@@ -66,15 +68,27 @@ function App() {
 			<GlobalStyle />
 			<Header />
 			<Hero />
-			<Solution />
-			<CoreTechnology />
-			<ContentSection>
-				<SectionTitle>순환 경제로의 전환</SectionTitle>
-				<SectionText>
-					제로원은 폐기물을 단순한 쓰레기가 아닌 가치 있는 자원으로 바라봅니다. 발생지 감량부터 수집, 자원화까지 이어지는 완벽한 순환 고리를 만들어 환경 부담은 줄이고 경제적 가치는 높이는 지속가능한
-					미래를 함께 만들어 갑니다.
-				</SectionText>
-			</ContentSection>
+			<div id="solution">
+				<Solution />
+			</div>
+			<div id="technology">
+				<CoreTechnology />
+			</div>
+			<div id="process">
+				<SolutionProcess />
+			</div>
+			<div id="cases">
+				<SuccessStories />
+			</div>
+			{/* <div id="contact">
+				<ContentSection>
+					<SectionTitle>순환 경제로의 전환</SectionTitle>
+					<SectionText>
+						제로원은 폐기물을 단순한 쓰레기가 아닌 가치 있는 자원으로 바라봅니다. 발생지 감량부터 수집, 자원화까지 이어지는 완벽한 순환 고리를 만들어 환경 부담은 줄이고 경제적 가치는 높이는 지속가능한
+						미래를 함께 만들어 갑니다.
+					</SectionText>
+				</ContentSection>
+			</div> */}
 		</>
 	);
 }

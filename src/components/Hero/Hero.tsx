@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import styled from "styled-components";
 import { motion, useAnimation, Variants, useViewportScroll, useTransform } from "framer-motion";
 import techImage from "../../assets/images/visual_02.png";
@@ -216,7 +216,7 @@ const GradientOverlay = styled(motion.div)`
 // 스크롤 경로 애니메이션 컴포넌트
 const ScrollPathContainer = styled.div`
 	position: fixed;
-	right: 35px;
+	right: 40px;
 	top: 50%;
 	transform: translateY(-50%);
 	height: 70vh;
@@ -236,12 +236,13 @@ const ScrollPathContainer = styled.div`
 `;
 
 const ScrollPath = styled.div<{ isHeroSection: boolean }>`
-	width: 3px;
+	width: 2px;
 	height: 100%;
-	background-color: ${(props) => (props.isHeroSection ? "rgba(255, 255, 255, 0.3)" : "rgba(13, 89, 50, 0.2)")};
+	background-color: ${(props) => (props.isHeroSection ? "rgba(255, 255, 255, 0.15)" : "rgba(13, 89, 50, 0.15)")};
 	position: relative;
 	overflow: visible;
-	border-radius: 4px;
+	border-radius: 15px;
+	box-shadow: ${(props) => (props.isHeroSection ? "0 0 5px rgba(255, 255, 255, 0.1)" : "0 0 5px rgba(13, 89, 50, 0.1)")};
 `;
 
 const ScrollTrail = styled(motion.div)<{ isHeroSection: boolean }>`
@@ -250,11 +251,10 @@ const ScrollTrail = styled(motion.div)<{ isHeroSection: boolean }>`
 	left: 0;
 	width: 100%;
 	height: 0;
-	background: ${(props) =>
-		props.isHeroSection ? "linear-gradient(to bottom, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.4))" : "linear-gradient(to bottom, rgba(13, 89, 50, 0.95), rgba(13, 89, 50, 0.4))"};
-	z-index: -1;
-	border-radius: 4px;
-	box-shadow: ${(props) => (props.isHeroSection ? "0 0 10px rgba(255, 255, 255, 0.5)" : "0 0 10px rgba(13, 89, 50, 0.5)")};
+	background: ${(props) => (props.isHeroSection ? "linear-gradient(to bottom, #ffffff, rgba(255, 255, 255, 0.7))" : "linear-gradient(to bottom, #0d5932, rgba(13, 89, 50, 0.7))")};
+	z-index: 1;
+	border-radius: 15px;
+	box-shadow: ${(props) => (props.isHeroSection ? "0 0 8px rgba(255, 255, 255, 0.4)" : "0 0 8px rgba(13, 89, 50, 0.4)")};
 `;
 
 const ScrollDots = styled.div`
@@ -263,97 +263,39 @@ const ScrollDots = styled.div`
 	height: 100%;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
 	align-items: center;
-`;
-
-const ScrollDot = styled.div<{ active: boolean; isHeroSection: boolean }>`
-	width: ${(props) => (props.active ? "16px" : "12px")};
-	height: ${(props) => (props.active ? "16px" : "12px")};
-	border-radius: 50%;
-	background-color: ${(props) => {
-		if (props.active) {
-			return props.isHeroSection ? "#ffffff" : "#0d5932";
-		}
-		return props.isHeroSection ? "rgba(255, 255, 255, 0.5)" : "rgba(13, 89, 50, 0.4)";
-	}};
-	transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-	position: relative;
-	z-index: 2;
-
-	box-shadow: ${(props) => (props.active ? (props.isHeroSection ? "0 0 15px 4px rgba(255, 255, 255, 0.7)" : "0 0 15px 4px rgba(13, 89, 50, 0.5)") : "none")};
-
-	&::after {
-		content: "";
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		width: ${(props) => (props.active ? "26px" : "0")};
-		height: ${(props) => (props.active ? "26px" : "0")};
-		border-radius: 50%;
-		background-color: transparent;
-		border: 2px solid
-			${(props) => {
-				if (props.active) {
-					return props.isHeroSection ? "rgba(255, 255, 255, 0.6)" : "rgba(13, 89, 50, 0.6)";
-				}
-				return "transparent";
-			}};
-		transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-	}
 `;
 
 const ScrollLabels = styled.div`
 	position: absolute;
-	left: -20px;
-	width: 100%;
+	right: 15px;
+	width: 120px;
 	height: 100%;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
 	align-items: flex-end;
 
 	@media (max-width: 991px) {
-		left: -50px;
+		right: 12px;
 	}
-`;
-
-const SectionLabel = styled.div<{ active: boolean; isHeroSection: boolean }>`
-	font-size: 0.85rem;
-	color: ${(props) => {
-		if (props.active) {
-			return props.isHeroSection ? "#ffffff" : "#0d5932";
-		}
-		return props.isHeroSection ? "rgba(255, 255, 255, 0.5)" : "rgba(13, 89, 50, 0.4)";
-	}};
-	transition: all 0.3s ease;
-	white-space: nowrap;
-	transform: translateY(5px);
-	opacity: ${(props) => (props.active ? 1 : 0.6)};
-	font-weight: ${(props) => (props.active ? 700 : 400)};
-	text-shadow: ${(props) => (props.active ? (props.isHeroSection ? "0 0 8px rgba(255, 255, 255, 0.4)" : "0 0 8px rgba(13, 89, 50, 0.4)") : "none")};
-	background-color: ${(props) => (props.isHeroSection ? "rgba(5, 58, 32, 0.8)" : "rgba(255, 255, 255, 0.8)")};
-	padding: 3px 8px;
-	border-radius: 4px;
 `;
 
 const ScrollPlane = styled(motion.div)`
 	position: absolute;
-	right: -20px;
-	width: 40px;
-	height: 40px;
+	right: -18px;
+	width: 36px;
+	height: 36px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	z-index: 3;
+	z-index: 4;
 `;
 
 const TruckWrapper = styled(motion.div)<{ isHeroSection: boolean }>`
-	width: 42px;
-	height: 42px;
+	width: 38px;
+	height: 38px;
 	position: relative;
-	filter: ${(props) => (props.isHeroSection ? "drop-shadow(0 0 12px rgba(255, 255, 255, 0.9))" : "drop-shadow(0 0 12px rgba(13, 89, 50, 0.9))")};
+	filter: ${(props) => (props.isHeroSection ? "drop-shadow(0 0 10px rgba(255, 255, 255, 0.7))" : "drop-shadow(0 0 10px rgba(13, 89, 50, 0.7))")};
 	transform-origin: center;
 
 	/* SVG 트럭 아이콘 스타일링 */
@@ -361,21 +303,6 @@ const TruckWrapper = styled(motion.div)<{ isHeroSection: boolean }>`
 		width: 100%;
 		height: 100%;
 		fill: ${(props) => (props.isHeroSection ? "#ffffff" : "#0d5932")};
-	}
-
-	/* 발광 효과 */
-	&::after {
-		content: "";
-		position: absolute;
-		top: 70%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		width: 60%;
-		height: 10px;
-		background-color: ${(props) => (props.isHeroSection ? "rgba(141, 255, 190, 0.7)" : "rgba(255, 255, 255, 0.7)")};
-		border-radius: 50%;
-		filter: blur(6px);
-		box-shadow: ${(props) => (props.isHeroSection ? "0 0 15px 5px rgba(141, 255, 190, 0.5)" : "0 0 15px 5px rgba(255, 255, 255, 0.5)")};
 	}
 `;
 
@@ -491,32 +418,344 @@ const scrollArrowAnimation = {
 
 const Hero: React.FC = () => {
 	const controls = useAnimation();
-	const { scrollYProgress } = useViewportScroll();
+	const { scrollY, scrollYProgress } = useViewportScroll();
 	const [activeSection, setActiveSection] = useState(0);
 	const [isHeroSection, setIsHeroSection] = useState(true);
 
-	// 비행기의 Y 위치를 스크롤 진행에 따라 변환
-	const planeYPosition = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+	// 스크롤 네비게이션 참조
+	const scrollDotsRef = useRef<HTMLDivElement>(null);
+	// 트럭 애니메이션 컨트롤
+	const truckControls = useAnimation();
+
+	// 섹션 정의
+	const sections = [
+		{ id: "hero", label: "제로원", ref: useRef<HTMLElement | null>(null) },
+		{ id: "solution", label: "솔루션", ref: useRef<HTMLElement | null>(null) },
+		{ id: "technology", label: "기술", ref: useRef<HTMLElement | null>(null) },
+		{ id: "process", label: "도입 및 사후관리", ref: useRef<HTMLElement | null>(null) },
+		{ id: "cases", label: "도입 성공 사례", ref: useRef<HTMLElement | null>(null) },
+	];
+
+	// 트레일과 트럭 회전 애니메이션
 	const planeRotation = useTransform(scrollYProgress, [0, 0.33, 0.67, 1], [0, 5, -5, 0]);
 	const trailHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
+	// 스크롤 이벤트 처리
 	useEffect(() => {
+		// 애니메이션 시작
 		controls.start("visible");
 
-		// 스크롤 진행에 따라 활성화된 섹션 변경 및 현재 섹션 배경색 확인
-		const unsubscribe = scrollYProgress.onChange((value) => {
-			const sectionIndex = Math.min(Math.floor(value * 4), 3);
-			setActiveSection(sectionIndex);
+		// 섹션 참조 획득
+		// Hero 섹션은 항상 있으므로 첫 번째로 설정
+		sections[0].ref.current = document.querySelector("section#hero") || document.querySelector("section");
 
-			// Hero 섹션(인덱스 0)인지 확인하여 배경색 타입 설정
-			setIsHeroSection(sectionIndex === 0);
-		});
+		// 나머지 섹션 찾기
+		for (let i = 1; i < sections.length; i++) {
+			const section = sections[i];
+			const element = document.getElementById(section.id);
+			if (element) {
+				section.ref.current = element;
+			}
+		}
 
-		return () => unsubscribe();
-	}, [controls, scrollYProgress]);
+		// 섹션 높이에 따른 위치 계산 함수
+		const calculatePositions = () => {
+			// 섹션 위치 및 높이 정보 수집
+			const sectionsInfo = sections
+				.map((section, index) => {
+					if (section.ref.current) {
+						const offsetTop = section.ref.current.offsetTop;
+						const height = section.ref.current.clientHeight;
+						return { index, offsetTop, height };
+					}
+					return null;
+				})
+				.filter(Boolean) as Array<{ index: number; offsetTop: number; height: number }>;
+
+			if (sectionsInfo.length === 0) return null;
+
+			// 전체 페이지 길이 계산
+			const totalScrollHeight =
+				Math.max(document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight) -
+				window.innerHeight;
+
+			// 네비게이션 경로 높이
+			const pathHeight = scrollDotsRef.current?.clientHeight || 0;
+			if (pathHeight === 0) return null;
+
+			// 각 섹션의 상대적 위치 계산 (0~1 사이 값)
+			const sectionPositions = sectionsInfo.map((section) => {
+				const relativePosition = section.offsetTop / totalScrollHeight;
+				// 스크롤 경로에서의 위치 (픽셀)
+				const pathPosition = Math.min(relativePosition * pathHeight, pathHeight - 20);
+				return {
+					index: section.index,
+					position: pathPosition,
+				};
+			});
+
+			return { sectionPositions, pathHeight, totalScrollHeight };
+		};
+
+		// 위치 계산 정보 초기화
+		let positionInfo = calculatePositions();
+
+		// DOM 요소에 위치 적용
+		const updateDotPositions = () => {
+			if (!positionInfo) {
+				positionInfo = calculatePositions();
+				if (!positionInfo) return;
+			}
+
+			const { sectionPositions } = positionInfo;
+
+			// 닷과 라벨 요소 가져오기
+			const dotsContainer = scrollDotsRef.current;
+			const labelsContainer = dotsContainer?.nextElementSibling as HTMLElement;
+
+			if (!dotsContainer || !labelsContainer) return;
+
+			// 기존 요소 모두 제거
+			while (dotsContainer.firstChild) {
+				dotsContainer.removeChild(dotsContainer.firstChild);
+			}
+
+			while (labelsContainer.firstChild) {
+				labelsContainer.removeChild(labelsContainer.firstChild);
+			}
+
+			// 새 위치로 요소 생성
+			sectionPositions.forEach(({ index, position }) => {
+				// 스크롤 닷 생성
+				const dot = document.createElement("div");
+				dot.className = `scroll-dot-${index}`;
+				dot.setAttribute("data-index", index.toString());
+				dot.style.position = "absolute";
+				dot.style.top = `${position}px`;
+				dot.style.width = index === activeSection ? "12px" : "8px";
+				dot.style.height = index === activeSection ? "12px" : "8px";
+				dot.style.borderRadius = "50%";
+				dot.style.zIndex = "3";
+				dot.style.cursor = "pointer";
+				dot.style.transition = "all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)";
+
+				// 닷 배경색 설정
+				if (index <= activeSection) {
+					dot.style.backgroundColor = isHeroSection ? "#ffffff" : "#0d5932";
+					dot.style.boxShadow = isHeroSection ? "0 0 10px rgba(255, 255, 255, 0.6)" : "0 0 10px rgba(13, 89, 50, 0.6)";
+				} else {
+					dot.style.backgroundColor = isHeroSection ? "rgba(255, 255, 255, 0.3)" : "rgba(13, 89, 50, 0.3)";
+				}
+
+				// 링 효과 생성 코드 제거, 바로 onclick 이벤트로 넘어감
+				dot.onclick = () => scrollToSection(sections[index].id);
+				dotsContainer.appendChild(dot);
+
+				// 라벨 생성
+				const label = document.createElement("div");
+				label.className = `section-label-${index}`;
+				label.textContent = sections[index].label;
+				label.setAttribute("data-index", index.toString());
+
+				// 라벨 스타일 설정
+				label.style.position = "absolute";
+				label.style.top = `${position}px`;
+				label.style.right = "0";
+				label.style.transform = "translateY(-50%)";
+				label.style.fontSize = "0.8rem";
+				label.style.letterSpacing = "0.5px";
+				label.style.fontWeight = index === activeSection ? "700" : "400";
+				label.style.whiteSpace = "nowrap";
+				label.style.opacity = index === activeSection ? "1" : "0.8";
+				label.style.cursor = "pointer";
+				label.style.transition = "all 0.4s cubic-bezier(0.25, 1, 0.5, 1)";
+				label.style.zIndex = "5";
+
+				// 색상 설정 - 제로원 섹션에서는 항상 흰색으로
+				if (isHeroSection) {
+					label.style.color = "#ffffff";
+					label.style.textShadow = "0 1px 3px rgba(0, 0, 0, 0.4)";
+				} else {
+					label.style.color = index === activeSection ? "#0d5932" : "rgba(13, 89, 50, 0.8)";
+				}
+
+				// 배경 및 블러 효과
+				label.style.padding = "6px 14px";
+				label.style.borderRadius = "30px";
+				label.style.backgroundColor = isHeroSection
+					? index === activeSection
+						? "rgba(13, 89, 50, 0.9)"
+						: "rgba(5, 58, 32, 0.8)"
+					: index === activeSection
+					? "rgba(255, 255, 255, 0.85)"
+					: "rgba(255, 255, 255, 0.7)";
+
+				// 블러 효과 적용
+				label.style.backdropFilter = "blur(15px)";
+				// TypeScript 린터 에러 방지를 위해 any 타입으로 캐스팅
+				(label.style as any).webkitBackdropFilter = "blur(15px)";
+
+				// 그림자 효과
+				label.style.boxShadow =
+					index === activeSection
+						? isHeroSection
+							? "0 4px 20px rgba(0, 0, 0, 0.5)"
+							: "0 4px 20px rgba(13, 89, 50, 0.4)"
+						: isHeroSection
+						? "0 2px 10px rgba(0, 0, 0, 0.2)"
+						: "0 2px 10px rgba(0, 0, 0, 0.1)";
+
+				// 활성 상태 표시기
+				if (index === activeSection) {
+					const indicator = document.createElement("div");
+					indicator.style.position = "absolute";
+					indicator.style.right = "-5px";
+					indicator.style.top = "50%";
+					indicator.style.transform = "translateY(-50%)";
+					indicator.style.width = "3px";
+					indicator.style.height = "50%";
+					indicator.style.backgroundColor = isHeroSection ? "#8dffbe" : "#0d5932";
+					indicator.style.borderRadius = "2px";
+
+					label.appendChild(indicator);
+				}
+
+				// 호버 효과
+				label.onmouseover = () => {
+					label.style.opacity = "1";
+					label.style.transform = "translateY(-50%) translateX(2px)";
+					label.style.backgroundColor = isHeroSection ? "rgba(13, 89, 50, 0.95)" : "rgba(255, 255, 255, 0.95)";
+					label.style.boxShadow = "0 5px 15px rgba(0, 0, 0, 0.25)";
+				};
+
+				label.onmouseout = () => {
+					label.style.opacity = index === activeSection ? "1" : "0.8";
+					label.style.transform = "translateY(-50%)";
+					label.style.backgroundColor = isHeroSection
+						? index === activeSection
+							? "rgba(13, 89, 50, 0.9)"
+							: "rgba(5, 58, 32, 0.8)"
+						: index === activeSection
+						? "rgba(255, 255, 255, 0.85)"
+						: "rgba(255, 255, 255, 0.7)";
+					label.style.boxShadow =
+						index === activeSection
+							? isHeroSection
+								? "0 4px 20px rgba(0, 0, 0, 0.5)"
+								: "0 4px 20px rgba(13, 89, 50, 0.4)"
+							: isHeroSection
+							? "0 2px 10px rgba(0, 0, 0, 0.2)"
+							: "0 2px 10px rgba(0, 0, 0, 0.1)";
+				};
+
+				label.onclick = () => scrollToSection(sections[index].id);
+				labelsContainer.appendChild(label);
+			});
+		};
+
+		// 초기 위치 설정
+		setTimeout(() => {
+			updateDotPositions();
+
+			// 스크롤 이벤트 핸들러
+			const handleScroll = () => {
+				if (!positionInfo) {
+					positionInfo = calculatePositions();
+					if (!positionInfo) return;
+				}
+
+				const { totalScrollHeight, pathHeight } = positionInfo;
+
+				// 현재 스크롤 위치
+				const scrollPosition = window.scrollY;
+
+				// 스크롤 진행률 계산 (0 ~ 1)
+				const scrollProgress = Math.min(Math.max(scrollPosition / totalScrollHeight, 0), 1);
+
+				// 트럭 위치 계산
+				const truckPosition = pathHeight * scrollProgress;
+
+				// 트럭 위치 업데이트
+				truckControls.set({ top: truckPosition });
+
+				// 현재 활성 섹션 찾기
+				const viewportMiddle = scrollPosition + window.innerHeight / 3;
+				let newActiveSection = 0;
+
+				for (let i = 0; i < sections.length; i++) {
+					const section = sections[i];
+					if (section.ref.current) {
+						const sectionTop = section.ref.current.offsetTop;
+						const sectionBottom = sectionTop + section.ref.current.clientHeight;
+
+						if (viewportMiddle >= sectionTop && viewportMiddle < sectionBottom) {
+							newActiveSection = i;
+							break;
+						}
+					}
+				}
+
+				// 활성 섹션 업데이트
+				if (newActiveSection !== activeSection) {
+					setActiveSection(newActiveSection);
+					setIsHeroSection(newActiveSection === 0);
+
+					// 닷과 라벨의 활성 상태 업데이트
+					const dots = scrollDotsRef.current?.children;
+					const labels = scrollDotsRef.current?.nextElementSibling?.children;
+
+					if (dots && labels) {
+						for (let i = 0; i < dots.length; i++) {
+							const isActive = i <= newActiveSection;
+							const dot = dots[i] as HTMLElement;
+							const label = labels[i] as HTMLElement;
+
+							// 활성 상태에 따른 클래스 적용
+							dot.className = `scroll-dot-${i} ${isActive ? "active" : ""}`;
+							label.className = `section-label-${i} ${i === newActiveSection ? "active" : ""}`;
+						}
+					}
+				}
+			};
+
+			// 이벤트 리스너 등록
+			window.addEventListener("scroll", handleScroll);
+			window.addEventListener("resize", () => {
+				positionInfo = calculatePositions();
+				updateDotPositions();
+				handleScroll();
+			});
+
+			// 초기 스크롤 위치 처리
+			handleScroll();
+
+			return () => {
+				window.removeEventListener("scroll", handleScroll);
+				window.removeEventListener("resize", handleScroll);
+			};
+		}, 300);
+	}, [controls, sections, truckControls, activeSection]);
+
+	// 네비게이션 클릭 처리 - 단순화
+	const scrollToSection = (sectionId: string) => {
+		const sectionIndex = sections.findIndex((s) => s.id === sectionId);
+		if (sectionIndex === -1) return;
+
+		// 1. 먼저 트럭 위치 업데이트
+		truckControls.set({ top: sections[sectionIndex].ref.current?.offsetTop || 0 });
+
+		// 2. 그 다음 스크롤 이동
+		const section = document.getElementById(sectionId) || sections[sectionIndex].ref.current;
+		if (section) {
+			window.scrollTo({
+				top: section.offsetTop - 80,
+				behavior: "smooth",
+			});
+		}
+	};
 
 	return (
-		<HeroSection>
+		<HeroSection id="hero">
 			<GradientOverlay
 				initial={{ opacity: 0 }}
 				animate={{
@@ -599,27 +838,9 @@ const Hero: React.FC = () => {
 							},
 						}}
 					/>
-					<ScrollDots>
-						<ScrollDot active={activeSection >= 0} isHeroSection={isHeroSection} />
-						<ScrollDot active={activeSection >= 1} isHeroSection={isHeroSection} />
-						<ScrollDot active={activeSection >= 2} isHeroSection={isHeroSection} />
-						<ScrollDot active={activeSection >= 3} isHeroSection={isHeroSection} />
-					</ScrollDots>
-					<ScrollLabels>
-						<SectionLabel active={activeSection === 0} isHeroSection={isHeroSection}>
-							소개
-						</SectionLabel>
-						<SectionLabel active={activeSection === 1} isHeroSection={isHeroSection}>
-							솔루션
-						</SectionLabel>
-						<SectionLabel active={activeSection === 2} isHeroSection={isHeroSection}>
-							기술
-						</SectionLabel>
-						<SectionLabel active={activeSection === 3} isHeroSection={isHeroSection}>
-							문의
-						</SectionLabel>
-					</ScrollLabels>
-					<ScrollPlane style={{ top: planeYPosition }}>
+					<ScrollDots ref={scrollDotsRef}>{/* 동적으로 생성됨 */}</ScrollDots>
+					<ScrollLabels>{/* 동적으로 생성됨 */}</ScrollLabels>
+					<ScrollPlane animate={truckControls} initial={{ top: 0 }}>
 						<TruckWrapper
 							isHeroSection={isHeroSection}
 							style={{
@@ -646,7 +867,6 @@ const Hero: React.FC = () => {
 						>
 							{/* 트럭 SVG 아이콘 */}
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
-								{/* 트럭 모양의 SVG 경로 */}
 								<path d="M48 0C21.5 0 0 21.5 0 48V368c0 26.5 21.5 48 48 48H64c0 53 43 96 96 96s96-43 96-96H384c0 53 43 96 96 96s96-43 96-96h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V288 256 237.3c0-17-6.7-33.3-18.7-45.3L512 114.7c-12-12-28.3-18.7-45.3-18.7H416V48c0-26.5-21.5-48-48-48H48zM416 160h50.7L544 237.3V256H416V160zM208 416c0 26.5-21.5 48-48 48s-48-21.5-48-48s21.5-48 48-48s48 21.5 48 48zm272 48c-26.5 0-48-21.5-48-48s21.5-48 48-48s48 21.5 48 48s-21.5 48-48 48z" />
 							</svg>
 						</TruckWrapper>
