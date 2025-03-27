@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { createGlobalStyle } from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
 import styled from "styled-components";
 import Header from "./components/Header/Header";
 import Hero from "./components/Hero/Hero";
+import Solution from "./components/Solution/Solution";
+import CoreTechnology from "./components/CoreTechnology/CoreTechnology";
 import "./App.css";
 
 const GlobalStyle = createGlobalStyle`
@@ -34,8 +36,8 @@ const GlobalStyle = createGlobalStyle`
 
 // 임시 콘텐츠 섹션 - 실제 콘텐츠로 교체 가능
 const ContentSection = styled.section`
-	min-height: 100vh;
-	background-color: #f9f9f9;
+	min-height: 70vh;
+	background-color: #f5f7f5;
 	padding: 5rem 2rem;
 	display: flex;
 	flex-direction: column;
@@ -64,10 +66,13 @@ function App() {
 			<GlobalStyle />
 			<Header />
 			<Hero />
+			<Solution />
+			<CoreTechnology />
 			<ContentSection>
-				<SectionTitle>환경과 경제의 균형</SectionTitle>
+				<SectionTitle>순환 경제로의 전환</SectionTitle>
 				<SectionText>
-					제로원은 폐기물 처리의 새로운 패러다임을 제시합니다. 우리의 솔루션은 자원 순환을 최적화하고 기업의 비용을 절감하며 지구 환경을 보호합니다. 더 자세한 내용을 알아보세요.
+					제로원은 폐기물을 단순한 쓰레기가 아닌 가치 있는 자원으로 바라봅니다. 발생지 감량부터 수집, 자원화까지 이어지는 완벽한 순환 고리를 만들어 환경 부담은 줄이고 경제적 가치는 높이는 지속가능한
+					미래를 함께 만들어 갑니다.
 				</SectionText>
 			</ContentSection>
 		</>
