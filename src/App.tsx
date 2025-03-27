@@ -3,8 +3,8 @@ import { createGlobalStyle } from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
 import styled from "styled-components";
 import Header from "./components/Header/Header";
+import Hero from "./components/Hero/Hero";
 import "./App.css";
-import backgroundImage from "./assets/visual_02.png";
 
 const GlobalStyle = createGlobalStyle`
 	* {
@@ -20,7 +20,6 @@ const GlobalStyle = createGlobalStyle`
 
 	body {
 		overflow-x: hidden;
-		overflow-y: hidden;
 	}
 
 	a {
@@ -33,157 +32,44 @@ const GlobalStyle = createGlobalStyle`
 	}
 `;
 
-const MainSection = styled.div`
-	padding-top: 80px;
-	height: 100vh;
-	background-image: url(${backgroundImage});
-	background-size: cover;
-	background-position: center;
-	position: relative;
-	overflow: hidden;
-
-	&::before {
-		content: "";
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background: rgba(0, 0, 0, 0.5);
-		z-index: 1;
-	}
-`;
-
-const ContentContainer = styled.div`
-	height: calc(100vh - 80px);
+// 임시 콘텐츠 섹션 - 실제 콘텐츠로 교체 가능
+const ContentSection = styled.section`
+	min-height: 100vh;
+	background-color: #f9f9f9;
+	padding: 5rem 2rem;
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	flex-direction: column;
-	padding: 2rem;
+`;
+
+const SectionTitle = styled.h2`
+	font-size: 2.5rem;
+	color: #0d5932;
+	margin-bottom: 2rem;
 	text-align: center;
-	position: relative;
-	z-index: 2;
 `;
 
-const TextWrapper = styled.div`
+const SectionText = styled.p`
+	font-size: 1.1rem;
+	color: #333;
 	max-width: 800px;
-	color: white;
-	text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-`;
-
-const MainTitle = styled(motion.h1)`
-	font-size: 3.5rem;
-	margin-bottom: 1.5rem;
-	font-weight: 700;
-
-	@media (max-width: 768px) {
-		font-size: 2.5rem;
-	}
-`;
-
-const MainDescription = styled(motion.p)`
-	font-size: 1.25rem;
+	text-align: center;
 	line-height: 1.6;
-
-	@media (max-width: 768px) {
-		font-size: 1rem;
-	}
 `;
-
-const titleVariants = {
-	hidden: { y: -50, opacity: 0 },
-	visible: {
-		y: 0,
-		opacity: 1,
-		transition: {
-			type: "spring",
-			stiffness: 300,
-			damping: 30,
-			duration: 0.5,
-		},
-	},
-	exit: {
-		y: 50,
-		opacity: 0,
-		transition: {
-			duration: 0.3,
-		},
-	},
-};
-
-const descriptionVariants = {
-	hidden: { y: -30, opacity: 0 },
-	visible: {
-		y: 0,
-		opacity: 1,
-		transition: {
-			type: "spring",
-			stiffness: 300,
-			damping: 30,
-			duration: 0.5,
-			delay: 0.2,
-		},
-	},
-	exit: {
-		y: 30,
-		opacity: 0,
-		transition: {
-			duration: 0.3,
-		},
-	},
-};
 
 function App() {
-	const [page, setPage] = useState(0);
-
-	const contentItems = [
-		{
-			title: "제로원이 안내합니다",
-			description: "폐기물 제로화를 위한 연구의 길, 유기성 폐기물 자원화 연구기업 제로원이 동행합니다.",
-		},
-		{
-			title: "친환경 순환 경제의 미래",
-			description: "지속 가능한 자원 순환을 위한 혁신적 기술 개발, 제로원이 함께합니다.",
-		},
-		{
-			title: "환경과 경제의 조화로운 솔루션",
-			description: "폐기물을 자원으로 변화시키는 통합 환경 관리 시스템으로 지구를 지키는 비즈니스를 만듭니다.",
-		},
-	];
-
-	// 4초마다 페이지 변경
-	useEffect(() => {
-		const interval = setInterval(() => {
-			setPage((prevPage) => (prevPage + 1) % contentItems.length);
-		}, 4000);
-
-		return () => clearInterval(interval);
-	}, [contentItems.length]);
-
-	const currentContent = contentItems[page];
-
 	return (
 		<>
 			<GlobalStyle />
 			<Header />
-			<MainSection>
-				<ContentContainer>
-					<TextWrapper>
-						<AnimatePresence mode="wait">
-							<MainTitle key={`title-${page}`} variants={titleVariants} initial="hidden" animate="visible" exit="exit">
-								{currentContent.title}
-							</MainTitle>
-						</AnimatePresence>
-
-						<AnimatePresence mode="wait">
-							<MainDescription key={`desc-${page}`} variants={descriptionVariants} initial="hidden" animate="visible" exit="exit">
-								{currentContent.description}
-							</MainDescription>
-						</AnimatePresence>
-					</TextWrapper>
-				</ContentContainer>
-			</MainSection>
+			<Hero />
+			<ContentSection>
+				<SectionTitle>환경과 경제의 균형</SectionTitle>
+				<SectionText>
+					제로원은 폐기물 처리의 새로운 패러다임을 제시합니다. 우리의 솔루션은 자원 순환을 최적화하고 기업의 비용을 절감하며 지구 환경을 보호합니다. 더 자세한 내용을 알아보세요.
+				</SectionText>
+			</ContentSection>
 		</>
 	);
 }
