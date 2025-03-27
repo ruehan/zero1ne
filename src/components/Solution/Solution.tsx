@@ -28,7 +28,7 @@ const solutionsData = [
 	},
 	{
 		id: "resource-recycling",
-		title: "유기성 폐기물의 자원화를 통한 새활용",
+		title: "유기성 폐기물의 자원화를 통한 재활용",
 		description: "수집된 유기성 폐기물을 에너지원 및 비료 등 가치 있는 자원으로 변환하는 순환경제 솔루션입니다.",
 		image: solution3,
 		icon: ConsultIcon,
