@@ -273,9 +273,6 @@ const Contact: React.FC = () => {
 
 			<ContactInner>
 				<ContactHeader>
-					<SectionTag initial="hidden" animate={controls} variants={itemAnimation}>
-						CONTACT US
-					</SectionTag>
 					<ContactTitle initial="hidden" animate={controls} variants={itemAnimation}>
 						Contact
 					</ContactTitle>
@@ -290,8 +287,8 @@ const Contact: React.FC = () => {
 							<CardIcon>📍</CardIcon>
 							<CardContent>
 								<CardTitle>주소</CardTitle>
-								<CardText>서울특별시 강남구 테헤란로 123</CardText>
-								<CardText>제로원 본사</CardText>
+								<CardText>충청북도 청주시 청원구 오창읍 양청송대길 10, 308호</CardText>
+								<CardText>(주)제로원</CardText>
 							</CardContent>
 						</ContactCard>
 
@@ -299,8 +296,7 @@ const Contact: React.FC = () => {
 							<CardIcon>📠</CardIcon>
 							<CardContent>
 								<CardTitle>Fax</CardTitle>
-								<CardText>02-123-4568</CardText>
-								<CardText>24시간 접수 가능</CardText>
+								<CardText>0303-3441-0101</CardText>
 							</CardContent>
 						</ContactCard>
 
@@ -308,8 +304,7 @@ const Contact: React.FC = () => {
 							<CardIcon>📧</CardIcon>
 							<CardContent>
 								<CardTitle>이메일</CardTitle>
-								<CardText>contact@zero1ne.com</CardText>
-								<CardText>24시간 접수 가능</CardText>
+								<CardText>zerone.khk@gmail.com</CardText>
 							</CardContent>
 						</ContactCard>
 
@@ -319,7 +314,7 @@ const Contact: React.FC = () => {
 					</ContactInfo>
 
 					<MapWrapper initial="hidden" animate={controls} variants={rightAnimation}>
-						<MapComponent position={position} popupText="제로원 본사 <br /> 서울특별시 강남구 테헤란로 123" />
+						<MapComponent position={position} popupText="제로원 <br /> 충청북도 청주시 청원구 오창읍 양청송대길 10, 308호" />
 					</MapWrapper>
 				</ContactContent>
 			</ContactInner>
