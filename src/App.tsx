@@ -1,29 +1,54 @@
-import React from "react";
-import { createGlobalStyle } from "styled-components";
+import React, { useState, useEffect } from "react";
+import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
-import styled from "styled-components";
 import Header from "./components/Header/Header";
 import Hero from "./components/Hero/Hero";
 import Solution from "./components/Solution/Solution";
 import CoreTechnology from "./components/CoreTechnology/CoreTechnology";
 import SolutionProcess from "./components/SolutionProcess/SolutionProcess";
-import "./App.css";
 import SuccessStories from "./components/SuccessStories/SuccessStories";
+import Contact from "./components/Contact/Contact";
+import EnvironmentalImpact from "./components/EnvironmentalImpact/EnvironmentalImpact";
+import "./App.css";
 
+// 글로벌 스타일
 const GlobalStyle = createGlobalStyle`
+	:root {
+		--primary-color: #2D70F6;
+		--secondary-color: #4285F4;
+		--accent-color: #34C759;
+		--text-color: #212529;
+		--text-color-light: #6c757d;
+		--text-color-lighter: #ADB5BD;
+		--bg-color: #FFFFFF;
+		--bg-color-light: #F8F9FA;
+		--bg-color-lighter: #E9ECEF;
+		--header-height: 70px;
+		--border-radius-sm: 6px;
+		--border-radius-md: 12px;
+		--border-radius-lg: 16px;
+		--box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+	}
+
 	* {
 		box-sizing: border-box;
 		margin: 0;
 		padding: 0;
-		font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-			'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-			sans-serif;
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
 	}
 
 	body {
+		font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+			'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		color: var(--text-color);
+		background-color: var(--bg-color);
+		line-height: 1.5;
 		overflow-x: hidden;
+	}
+
+	html {
+		scroll-behavior: smooth;
 	}
 
 	a {
@@ -33,63 +58,296 @@ const GlobalStyle = createGlobalStyle`
 
 	button {
 		cursor: pointer;
+		border: none;
+		background: none;
+	}
+
+	img {
+		max-width: 100%;
+		height: auto;
+	}
+
+	section {
+		width: 100%;
+		padding: 100px 0;
+	}
+
+	h1, h2, h3, h4, h5, h6 {
+		font-weight: 700;
+		line-height: 1.3;
+		margin-bottom: 16px;
+	}
+
+	h1 {
+		font-size: 3.5rem;
+		letter-spacing: -0.5px;
+
+		@media (max-width: 768px) {
+			font-size: 2.5rem;
+		}
+	}
+
+	h2 {
+		font-size: 2.5rem;
+		letter-spacing: -0.3px;
+
+		@media (max-width: 768px) {
+			font-size: 2rem;
+		}
+	}
+
+	h3 {
+		font-size: 2rem;
+
+		@media (max-width: 768px) {
+			font-size: 1.75rem;
+		}
+	}
+
+	p {
+		margin-bottom: 16px;
+	}
+
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 24px;
+	}
+
+	.btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 12px 28px;
+		border-radius: var(--border-radius-sm);
+		font-weight: 600;
+		font-size: 1rem;
+		transition: all 0.2s ease;
+	}
+
+	.btn-primary {
+		background-color: var(--primary-color);
+		color: white;
+		box-shadow: 0 4px 10px rgba(45, 112, 246, 0.3);
+	}
+
+	.btn-primary:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 6px 15px rgba(45, 112, 246, 0.4);
+	}
+
+	.btn-secondary {
+		background-color: white;
+		color: var(--primary-color);
+		border: 1px solid #E9ECEF;
+		box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+	}
+
+	.btn-secondary:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+	}
+
+	.text-primary {
+		color: var(--primary-color);
+	}
+
+	.text-accent {
+		color: var(--accent-color);
+	}
+
+	.card {
+		background-color: white;
+		border-radius: var(--border-radius-md);
+		box-shadow: var(--box-shadow);
+		padding: 24px;
+		transition: all 0.3s ease;
+	}
+
+	.card:hover {
+		transform: translateY(-5px);
+		box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
 	}
 `;
 
-// 임시 콘텐츠 섹션 - 실제 콘텐츠로 교체 가능
-const ContentSection = styled.section`
-	min-height: 70vh;
-	background-color: #f5f7f5;
-	padding: 5rem 2rem;
+// 테마
+const theme = {
+	colors: {
+		primary: "var(--primary-color)",
+		secondary: "var(--secondary-color)",
+		accent: "var(--accent-color)",
+		text: "var(--text-color)",
+		textLight: "var(--text-color-light)",
+		textLighter: "var(--text-color-lighter)",
+		background: "var(--bg-color)",
+		backgroundLight: "var(--bg-color-light)",
+		backgroundLighter: "var(--bg-color-lighter)",
+	},
+	breakpoints: {
+		mobile: "576px",
+		tablet: "768px",
+		laptop: "992px",
+		desktop: "1200px",
+	},
+	borderRadius: {
+		small: "var(--border-radius-sm)",
+		medium: "var(--border-radius-md)",
+		large: "var(--border-radius-lg)",
+	},
+	boxShadow: "var(--box-shadow)",
+};
+
+// 스타일드 컴포넌트
+const AppContainer = styled.div`
 	display: flex;
 	flex-direction: column;
-	align-items: center;
-	justify-content: center;
+	min-height: 100vh;
 `;
 
-const SectionTitle = styled.h2`
-	font-size: 2.5rem;
-	color: #0d5932;
-	margin-bottom: 2rem;
-	text-align: center;
+const MainContent = styled.main`
+	flex: 1;
+	position: relative;
 `;
 
-const SectionText = styled.p`
-	font-size: 1.1rem;
-	color: #333;
-	max-width: 800px;
-	text-align: center;
-	line-height: 1.6;
+const SectionContainer = styled.div`
+	scroll-margin-top: var(--header-height);
+	position: relative;
+`;
+
+const ScrollProgressContainer = styled.div`
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 3px;
+	background: rgba(0, 0, 0, 0.05);
+	z-index: 1000;
+`;
+
+const ScrollProgressBar = styled(motion.div)`
+	height: 100%;
+	background: var(--primary-color);
+	transform-origin: left;
 `;
 
 function App() {
+	const [scrollProgress, setScrollProgress] = useState(0);
+	const [isInitialLoad, setIsInitialLoad] = useState(true);
+
+	// 스크롤 진행률 업데이트
+	useEffect(() => {
+		const handleScroll = () => {
+			const totalHeight = document.body.scrollHeight - window.innerHeight;
+			const progress = window.scrollY / totalHeight;
+			setScrollProgress(progress);
+		};
+
+		window.addEventListener("scroll", handleScroll);
+		return () => window.removeEventListener("scroll", handleScroll);
+	}, []);
+
+	useEffect(() => {
+		// 초기 로딩 상태 처리
+		const timer = setTimeout(() => {
+			setIsInitialLoad(false);
+		}, 1500);
+
+		// 섹션 간 부드러운 전환을 위한 추가 설정
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add("active");
+					} else {
+						entry.target.classList.remove("active");
+					}
+				});
+			},
+			{ threshold: 0.3 }
+		);
+
+		const sections = document.querySelectorAll("section");
+		sections.forEach((section) => {
+			observer.observe(section);
+		});
+
+		return () => {
+			sections.forEach((section) => {
+				observer.unobserve(section);
+			});
+			clearTimeout(timer);
+		};
+	}, []);
+
 	return (
-		<>
+		<ThemeProvider theme={theme}>
 			<GlobalStyle />
-			<Header />
-			<Hero />
-			<div id="solution">
-				<Solution />
-			</div>
-			<div id="technology">
-				<CoreTechnology />
-			</div>
-			<div id="process">
-				<SolutionProcess />
-			</div>
-			<div id="cases">
-				<SuccessStories />
-			</div>
-			{/* <div id="contact">
-				<ContentSection>
-					<SectionTitle>순환 경제로의 전환</SectionTitle>
-					<SectionText>
-						제로원은 폐기물을 단순한 쓰레기가 아닌 가치 있는 자원으로 바라봅니다. 발생지 감량부터 수집, 자원화까지 이어지는 완벽한 순환 고리를 만들어 환경 부담은 줄이고 경제적 가치는 높이는 지속가능한
-						미래를 함께 만들어 갑니다.
-					</SectionText>
-				</ContentSection>
-			</div> */}
-		</>
+
+			<AnimatePresence>
+				{/* 스플래시 화면 */}
+				{isInitialLoad && (
+					<motion.div
+						initial={{ opacity: 1 }}
+						exit={{ opacity: 0 }}
+						transition={{ duration: 0.5 }}
+						style={{
+							position: "fixed",
+							top: 0,
+							left: 0,
+							right: 0,
+							bottom: 0,
+							backgroundColor: "#2D70F6",
+							display: "flex",
+							justifyContent: "center",
+							alignItems: "center",
+							zIndex: 9999,
+						}}
+					>
+						<motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 0.2, duration: 0.8 }}>
+							<img src="/logo.svg" alt="Zero1ne Logo" style={{ width: "180px", height: "auto" }} />
+						</motion.div>
+					</motion.div>
+				)}
+			</AnimatePresence>
+
+			<AppContainer>
+				<ScrollProgressContainer>
+					<ScrollProgressBar style={{ scaleX: scrollProgress }} />
+				</ScrollProgressContainer>
+
+				<Header />
+
+				<MainContent>
+					<SectionContainer id="hero">
+						<Hero />
+					</SectionContainer>
+
+					<SectionContainer id="solution">
+						<Solution />
+					</SectionContainer>
+
+					<SectionContainer id="technology">
+						<CoreTechnology />
+					</SectionContainer>
+
+					<SectionContainer id="environmental-impact">
+						<EnvironmentalImpact />
+					</SectionContainer>
+
+					{/* <SectionContainer id="process">
+						<SolutionProcess />
+					</SectionContainer> */}
+
+					<SectionContainer id="success">
+						<SuccessStories />
+					</SectionContainer>
+
+					<SectionContainer id="contact">
+						<Contact />
+					</SectionContainer>
+				</MainContent>
+			</AppContainer>
+		</ThemeProvider>
 	);
 }
 

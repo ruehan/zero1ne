@@ -308,32 +308,178 @@ const CTAButton = styled(motion.button)`
 	}
 `;
 
-// 프로세스 데이터 - 홀수는 왼쪽, 짝수는 오른쪽에 배치
+const ProblemHeader = styled(motion.div)`
+	text-align: center;
+	margin-bottom: 30px;
+`;
+
+const ProblemTag = styled(motion.div)`
+	display: inline-block;
+	background-color: rgba(13, 89, 50, 0.1);
+	color: #0d5932;
+	font-weight: 600;
+	font-size: 0.9rem;
+	padding: 6px 12px;
+	border-radius: 20px;
+	margin-bottom: 15px;
+`;
+
+const ProcessTimeline = styled(motion.div)`
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin: 30px 0 60px;
+	position: relative;
+
+	@media (max-width: 768px) {
+		flex-direction: column;
+		align-items: center;
+	}
+`;
+
+const ProcessStep = styled(motion.div)<{ active?: boolean }>`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 120px;
+	position: relative;
+
+	@media (max-width: 768px) {
+		width: 100%;
+		margin-bottom: 30px;
+		flex-direction: row;
+		justify-content: flex-start;
+		align-items: center;
+	}
+`;
+
+const ProcessIcon = styled.div<{ active?: boolean }>`
+	width: 80px;
+	height: 80px;
+	background-color: ${(props) => (props.active ? "#3498db" : "#f2f2f2")};
+	border-radius: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 15px;
+	box-shadow: ${(props) => (props.active ? "0 5px 15px rgba(52, 152, 219, 0.3)" : "0 5px 15px rgba(0, 0, 0, 0.05)")};
+
+	@media (max-width: 768px) {
+		width: 60px;
+		height: 60px;
+		margin-right: 15px;
+		margin-bottom: 0;
+	}
+`;
+
+const ProcessStepName = styled.div<{ active?: boolean }>`
+	font-weight: ${(props) => (props.active ? "700" : "500")};
+	font-size: 1rem;
+	text-align: center;
+	color: ${(props) => (props.active ? "#333" : "#777")};
+
+	@media (max-width: 768px) {
+		text-align: left;
+	}
+`;
+
+const TimeConnector = styled(motion.div)`
+	position: absolute;
+	height: 2px;
+	background-color: #e0e0e0;
+	top: 40px;
+	left: 60px;
+	right: 60px;
+	z-index: -1;
+
+	@media (max-width: 768px) {
+		display: none;
+	}
+`;
+
+const TimeSection = styled(motion.div)`
+	display: flex;
+	justify-content: space-between;
+	margin-top: 20px;
+
+	@media (max-width: 768px) {
+		flex-direction: column;
+	}
+`;
+
+const TimePeriod = styled.div`
+	text-align: center;
+	width: 50%;
+
+	@media (max-width: 768px) {
+		width: 100%;
+		margin-bottom: 20px;
+	}
+`;
+
+const TimeLabel = styled.div`
+	font-weight: 600;
+	font-size: 1rem;
+	color: #555;
+	margin-bottom: 5px;
+`;
+
+const TimeDuration = styled.div`
+	font-weight: 700;
+	font-size: 1.5rem;
+	color: ${(props) => props.color || "#3498db"};
+`;
+
+// 공정 단계 데이터 업데이트
 const processSteps = [
 	{
-		number: 1,
-		title: "문의 및 상담",
-		description: "전화, 이메일 또는 웹사이트를 통해 문의해주시면 전문 컨설턴트가 초기 상담을 진행합니다. 고객의 요구사항과 현재 폐기물 관리 상황을 파악합니다.",
-		isEven: false, // 왼쪽에 배치
-	},
-	{
-		number: 2,
+		number: "01",
 		title: "현장 분석",
-		description: "전문가 팀이 현장을 방문하여 폐기물 발생량, 처리 현황, 시설 환경 등을 분석합니다. 정확한 데이터를 수집하여 최적의 솔루션을 설계하기 위한 기초 작업을 수행합니다.",
-		isEven: true, // 오른쪽에 배치
+		description: "고객사의 요구사항과 현재 폐기물 처리 시스템을 분석하여 최적의 솔루션을 설계합니다.",
+		isEven: false,
 	},
 	{
-		number: 3,
-		title: "맞춤형 솔루션 제안",
-		description: "수집된 데이터를 바탕으로 고객의 상황에 맞는 최적의 폐기물 처리 솔루션을 설계하고 제안합니다. 담비와 쓸모 서비스 중 적합한 조합을 구성하여 효율적인 순환 경제 시스템을 구축합니다.",
-		isEven: false, // 왼쪽에 배치
+		number: "02",
+		title: "맞춤형 솔루션 설계",
+		description: "고객사의 특성과 요구에 맞는 친환경 순환 경제 솔루션을 설계합니다.",
+		isEven: true,
 	},
 	{
-		number: 4,
-		title: "도입 및 사후관리",
-		description: "합의된 솔루션을 설치 및 도입한 후, 지속적인 모니터링과 사후관리를 제공합니다. 정기적인 성과 보고서를 통해 솔루션의 효과를 확인하고, 필요시 최적화를 진행합니다.",
-		isEven: true, // 오른쪽에 배치
+		number: "03",
+		title: "솔루션 구현",
+		description: "설계된 솔루션을 현장에 맞게 구현하고 시스템을 설치합니다.",
+		isEven: false,
 	},
+	{
+		number: "04",
+		title: "시스템 최적화",
+		description: "설치된 시스템의 성능을 최적화하고 고객사 환경에 맞게 조정합니다.",
+		isEven: true,
+	},
+	{
+		number: "05",
+		title: "운영 교육 및 인수인계",
+		description: "고객사 담당자에게 시스템 운영 교육을 진행하고 원활한 인수인계를 지원합니다.",
+		isEven: false,
+	},
+	{
+		number: "06",
+		title: "사후 관리 및 모니터링",
+		description: "지속적인 모니터링과 정기 점검을 통해 시스템이 최적의 상태로 유지될 수 있도록 관리합니다.",
+		isEven: true,
+	},
+];
+
+// 폐기물 처리 프로세스 단계 데이터
+const wasteProcessSteps = [
+	{ name: "발생", icon: "📦", active: false },
+	{ name: "야적", icon: "📚", active: false },
+	{ name: "수집", icon: "🚚", active: false },
+	{ name: "운송", icon: "🚛", active: false },
+	{ name: "선별", icon: "🔍", active: false },
+	{ name: "건조", icon: "🔥", active: true },
+	{ name: "운송", icon: "🚛", active: false },
+	{ name: "재활용", icon: "♻️", active: false },
 ];
 
 // 애니메이션 설정
@@ -362,7 +508,7 @@ const progressAnimation = {
 	}),
 };
 
-// 솔루션 프로세스 컴포넌트
+// SolutionProcess 컴포넌트 수정
 const SolutionProcess: React.FC = () => {
 	const controls = useAnimation();
 	const lineControls = useAnimation();

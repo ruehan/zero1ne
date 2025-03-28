@@ -15,15 +15,13 @@ const solutionsData = [
 		title: "유기성 폐기물 발생지 직접 감량",
 		description: "식품 폐기물이 발생하는 현장에서 즉시 처리하여 부피와 중량을 최대 90%까지 줄이는 혁신적인 시스템입니다.",
 		image: solution1,
-		icon: RecycleIcon,
-		benefits: ["폐기물 발생지에서 즉시 처리", "운반 비용 대폭 절감", "악취 및 해충 문제 해결", "환경 오염 최소화"],
+		benefits: ["폐기물 발생지에서 즉시 처리", "악취 및 해충 문제 해결", "환경 오염 최소화"],
 	},
 	{
 		id: "byproduct-collection",
-		title: "2차 부산물 수집 및 운반 서비스",
-		description: "발생지에서 감량된 폐기물의 부산물을 효율적으로 수집하고 운반하는 통합 물류 서비스를 제공합니다.",
+		title: "폐기물 수집 및 운반 서비스",
+		description: "폐기물을 효율적으로 수집하고 운반하는 통합 물류 서비스를 제공합니다.",
 		image: solution2,
-		icon: MonitorIcon,
 		benefits: ["수거 일정 최적화 시스템", "전용 운반 차량 및 장비 제공", "실시간 수거량 모니터링", "투명한 처리 과정 추적"],
 	},
 	{
@@ -31,7 +29,6 @@ const solutionsData = [
 		title: "유기성 폐기물의 자원화를 통한 재활용",
 		description: "수집된 유기성 폐기물을 에너지원 및 비료 등 가치 있는 자원으로 변환하는 순환경제 솔루션입니다.",
 		image: solution3,
-		icon: ConsultIcon,
 		benefits: ["바이오가스 생산 및 에너지화", "고품질 퇴비 및 비료 생산", "탄소 배출권 확보 지원", "자원 재활용 인증 획득"],
 	},
 ];
@@ -262,8 +259,6 @@ const Solution: React.FC = () => {
 
 				<CardsContainer>
 					{solutionsData.map((solution, index) => {
-						const Icon = solution.icon;
-
 						return (
 							<SolutionCard
 								key={solution.id}
@@ -277,13 +272,7 @@ const Solution: React.FC = () => {
 								transition={{ delay: index * 0.2 }}
 								whileHover="hover"
 							>
-								<CardImage image={solution.image}>
-									<IconOverlay>
-										<StyledIcon>
-											<Icon />
-										</StyledIcon>
-									</IconOverlay>
-								</CardImage>
+								<CardImage image={solution.image}></CardImage>
 
 								<CardContent>
 									<CardTitle>{solution.title}</CardTitle>

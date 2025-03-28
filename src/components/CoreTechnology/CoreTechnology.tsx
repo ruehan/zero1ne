@@ -305,12 +305,6 @@ const CoreTechnology: React.FC = () => {
 						</ProductImageContainer>
 
 						<ProductContent>
-							<IconContainer>
-								<StyledIcon>
-									<DambiIcon />
-								</StyledIcon>
-							</IconContainer>
-
 							<ProductDescription>
 								'담비'는 식품 폐기물 발생 현장에서 직접 처리할 수 있는 고속 감량 시스템입니다. 특허받은 기술을 바탕으로 수분 증발 방식을 통해 폐기물의 부피와 무게를 최대 90%까지 줄이며, 악취와 위생
 								문제를 해결합니다.
@@ -349,15 +343,8 @@ const CoreTechnology: React.FC = () => {
 						</ProductImageContainer>
 
 						<ProductContent>
-							<IconContainer>
-								<StyledIcon>
-									<SeulmoIcon />
-								</StyledIcon>
-							</IconContainer>
-
 							<ProductDescription>
-								'쓸모'는 '담비'를 통해 감량된 폐기물을 수거하여 자원으로 재활용하는 종합 위탁 처리 서비스입니다. 정기적인 수거 일정을 제공하고, 처리된 폐기물을 바이오가스, 비료 등으로 재활용하여 순환
-								경제를 실현합니다.
+								'쓸모'는 폐기물을 수거하여 자원으로 재활용하는 종합 위탁 처리 서비스입니다. 정기적인 수거 일정을 제공하고, 처리된 폐기물을 바이오가스, 비료 등으로 재활용하여 순환 경제를 실현합니다.
 							</ProductDescription>
 
 							<FeaturesTitle>주요 특징</FeaturesTitle>

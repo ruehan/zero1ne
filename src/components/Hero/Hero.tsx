@@ -311,10 +311,10 @@ const Hero: React.FC = () => {
 					</ButtonContainer>
 
 					<StatsContainer variants={staggerChildren} initial="hidden" animate={controls} transition={{ delay: 0.6 }}>
-						<StatItem variants={fadeIn}>
+						{/* <StatItem variants={fadeIn}>
 							<StatValue>30%</StatValue>
 							<StatLabel>연간 CO2 감소</StatLabel>
-						</StatItem>
+						</StatItem> */}
 
 						<StatItem variants={fadeIn}>
 							<StatValue>85%</StatValue>
@@ -322,7 +322,7 @@ const Hero: React.FC = () => {
 						</StatItem>
 
 						<StatItem variants={fadeIn}>
-							<StatValue>40%</StatValue>
+							<StatValue>30%</StatValue>
 							<StatLabel>운영 비용 절감</StatLabel>
 						</StatItem>
 					</StatsContainer>
@@ -335,8 +335,67 @@ const Hero: React.FC = () => {
 					</TechImageContainer>
 				</RightContent>
 			</HeroContent>
+
+			{/* 스크롤 다운 인디케이터 */}
+			<ScrollDownLink href="#solution" variants={fadeIn} initial="hidden" animate={controls} transition={{ delay: 1.2 }}>
+				<ScrollText>더 알아보기</ScrollText>
+				<ScrollDownIcon
+					animate={{ y: [0, 10, 0] }}
+					transition={{
+						repeat: Infinity,
+						duration: 1.5,
+						ease: "easeInOut",
+					}}
+				>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+						<path d="M12 5v14M5 12l7 7 7-7" />
+					</svg>
+				</ScrollDownIcon>
+			</ScrollDownLink>
 		</HeroSection>
 	);
 };
+
+// 스타일 컴포넌트 추가
+const ScrollDownLink = styled(motion.a)`
+	position: absolute;
+	bottom: 40px;
+	left: 50%;
+	transform: translateX(-50%);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	color: white;
+	opacity: 0.8;
+	text-decoration: none;
+	transition: opacity 0.3s ease;
+	z-index: 10;
+
+	&:hover {
+		opacity: 1;
+	}
+
+	@media (max-width: 768px) {
+		bottom: 20px;
+	}
+`;
+
+const ScrollText = styled.span`
+	font-size: 0.9rem;
+	margin-bottom: 10px;
+	font-weight: 500;
+	letter-spacing: 1px;
+`;
+
+const ScrollDownIcon = styled(motion.div)`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	svg {
+		width: 28px;
+		height: 28px;
+	}
+`;
 
 export default Hero;
