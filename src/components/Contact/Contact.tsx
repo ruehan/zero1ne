@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import styled from "styled-components";
 import { motion, useAnimation, useInView } from "framer-motion";
-import MapComponent from "./MapComponent";
+// import MapComponent from "./MapComponent";
 
 // 스타일드 컴포넌트
 const ContactSection = styled.section`
@@ -314,7 +314,7 @@ const Contact: React.FC = () => {
 					</ContactInfo>
 
 					<MapWrapper initial="hidden" animate={controls} variants={rightAnimation}>
-						<MapComponent position={position} popupText="제로원 <br /> 충청북도 청주시 청원구 오창읍 양청송대길 10, 308호" />
+						{/* <MapComponent position={position} popupText="제로원 <br /> 충청북도 청주시 청원구 오창읍 양청송대길 10, 308호" /> */}
 					</MapWrapper>
 				</ContactContent>
 			</ContactInner>
