@@ -1,1 +1,301 @@
-/* 필요한 경우 여기에 스타일 추가 */
+/* 리캐치 스타일 CSS */
+
+/* 섹션 전환 애니메이션 */
+section {
+	opacity: 0;
+	transform: translateY(20px);
+	transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+	position: relative;
+	overflow: hidden;
+}
+
+section.active {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+/* 스크롤 부드럽게 */
+html {
+	scroll-behavior: smooth;
+}
+
+/* 카드 및 섹션 효과 */
+.card {
+	border-radius: var(--border-radius-md);
+	background: white;
+	box-shadow: var(--box-shadow);
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* 서비스 아이템 애니메이션 */
+.service-item {
+	transition: all 0.3s ease;
+}
+
+.service-item:hover {
+	transform: translateY(-7px);
+}
+
+/* 컨텐츠 요소 순차적 등장 */
+.stagger-item {
+	opacity: 0;
+	transform: translateY(15px);
+	transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+section.active .stagger-item {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+section.active .stagger-item:nth-child(1) {
+	transition-delay: 0.1s;
+}
+
+section.active .stagger-item:nth-child(2) {
+	transition-delay: 0.2s;
+}
+
+section.active .stagger-item:nth-child(3) {
+	transition-delay: 0.3s;
+}
+
+section.active .stagger-item:nth-child(4) {
+	transition-delay: 0.4s;
+}
+
+section.active .stagger-item:nth-child(5) {
+	transition-delay: 0.5s;
+}
+
+/* 애니메이션 지연 효과 */
+section:nth-child(2n) {
+	transition-delay: 0.1s;
+}
+
+section:nth-child(3n) {
+	transition-delay: 0.2s;
+}
+
+/* 숫자 애니메이션 */
+.number-counter {
+	display: inline-block;
+	font-weight: 700;
+	font-size: 2.5rem;
+	color: var(--primary-color);
+	margin-bottom: 0.5rem;
+}
+
+/* 이미지 사각형 박스 */
+.image-box {
+	border-radius: var(--border-radius-md);
+	overflow: hidden;
+	box-shadow: var(--box-shadow);
+	position: relative;
+}
+
+.image-box img {
+	width: 100%;
+	height: auto;
+	transition: transform 0.5s ease;
+}
+
+.image-box:hover img {
+	transform: scale(1.05);
+}
+
+/* 리캐치 스타일 배지 */
+.badge {
+	display: inline-block;
+	padding: 5px 12px;
+	border-radius: 20px;
+	font-size: 0.85rem;
+	font-weight: 600;
+	margin-bottom: 16px;
+	background-color: rgba(45, 112, 246, 0.1);
+	color: var(--primary-color);
+}
+
+/* 구분선 */
+.divider {
+	height: 1px;
+	background-color: #e9ecef;
+	margin: 40px 0;
+	width: 100%;
+}
+
+/* 모바일 반응형 조정 */
+@media (max-width: 768px) {
+	section {
+		padding: 60px 0;
+	}
+
+	.container {
+		padding: 0 20px;
+	}
+}
+
+/* 검색 박스 */
+.search-box {
+	display: flex;
+	width: 100%;
+	max-width: 550px;
+	height: 54px;
+	border-radius: var(--border-radius-sm);
+	background: white;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+	padding: 2px;
+	margin: 30px auto;
+}
+
+.search-box input {
+	flex: 1;
+	border: none;
+	outline: none;
+	padding: 0 20px;
+	font-size: 0.95rem;
+}
+
+.search-box button {
+	background: var(--primary-color);
+	color: white;
+	border-radius: var(--border-radius-sm);
+	padding: 0 30px;
+	font-weight: 600;
+	font-size: 0.95rem;
+}
+
+/* 스크롤 연결 링크 */
+.scroll-link {
+	position: absolute;
+	bottom: 30px;
+	left: 50%;
+	transform: translateX(-50%);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	color: var(--primary-color);
+	font-size: 0.9rem;
+	font-weight: 500;
+	text-decoration: none;
+	transition: color 0.3s ease;
+	z-index: 10;
+}
+
+.scroll-link svg {
+	margin-top: 8px;
+	font-size: 1.2rem;
+	animation: scrollPulse 2s infinite;
+}
+
+@keyframes scrollPulse {
+	0% {
+		transform: translateY(0);
+		opacity: 0.7;
+	}
+	50% {
+		transform: translateY(10px);
+		opacity: 1;
+	}
+	100% {
+		transform: translateY(0);
+		opacity: 0.7;
+	}
+}
+
+/* 테스티모니얼 효과 */
+.testimonial {
+	position: relative;
+	padding: 30px;
+	border-radius: var(--border-radius-md);
+	background: white;
+	box-shadow: var(--box-shadow);
+}
+
+.testimonial::before {
+	content: '"';
+	position: absolute;
+	top: 15px;
+	left: 15px;
+	font-size: 60px;
+	color: rgba(45, 112, 246, 0.1);
+	font-family: serif;
+	line-height: 1;
+}
+
+/* 격자 그리드 레이아웃 */
+.grid-layout {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+	gap: 24px;
+	margin: 40px 0;
+}
+
+@media (max-width: 768px) {
+	.grid-layout {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* 리캐치 컬러 효과 */
+.bg-primary-light {
+	background-color: rgba(45, 112, 246, 0.05);
+}
+
+.bg-accent-light {
+	background-color: rgba(52, 199, 89, 0.05);
+}
+
+/* 헤더 스타일 */
+.section-header {
+	margin-bottom: 60px;
+	text-align: center;
+}
+
+.section-title {
+	font-size: 2.5rem;
+	letter-spacing: -0.5px;
+	margin-bottom: 16px;
+	font-weight: 700;
+}
+
+.section-subtitle {
+	font-size: 1.1rem;
+	color: var(--text-color-light);
+	max-width: 700px;
+	margin: 0 auto;
+}
+
+/* 버튼 스타일 */
+.btn-group {
+	display: flex;
+	gap: 12px;
+	margin-top: 24px;
+}
+
+/* 고객사 로고 스타일 */
+.client-logos {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	gap: 30px;
+	margin: 40px 0;
+}
+
+.client-logo {
+	opacity: 0.7;
+	transition: opacity 0.3s ease, transform 0.3s ease;
+	filter: grayscale(100%);
+}
+
+.client-logo:hover {
+	opacity: 1;
+	transform: translateY(-5px);
+	filter: grayscale(0%);
+}
