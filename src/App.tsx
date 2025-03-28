@@ -9,6 +9,7 @@ import SolutionProcess from "./components/SolutionProcess/SolutionProcess";
 import SuccessStories from "./components/SuccessStories/SuccessStories";
 import Contact from "./components/Contact/Contact";
 import EnvironmentalImpact from "./components/EnvironmentalImpact/EnvironmentalImpact";
+import Footer from "./components/Footer/Footer";
 import "./App.css";
 
 // 글로벌 스타일
@@ -346,6 +347,8 @@ function App() {
 						<Contact />
 					</SectionContainer>
 				</MainContent>
+
+				<Footer />
 			</AppContainer>
 		</ThemeProvider>
 	);
