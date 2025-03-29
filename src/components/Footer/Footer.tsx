@@ -168,8 +168,6 @@ const LegalLink = styled.a`
 `;
 
 const Footer: React.FC = () => {
-	const currentYear = new Date().getFullYear();
-
 	return (
 		<FooterContainer>
 			<FooterInner>
