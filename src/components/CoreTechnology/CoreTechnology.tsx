@@ -277,16 +277,16 @@ const CoreTechnology: React.FC = () => {
 
 							<FeaturesList>
 								<FeatureItem variants={fadeInUp} animate={controls} transition={{ delay: 0.4 }}>
-									하루 최대 100kg 처리 가능한 고효율 시스템
+									반영구적 촉매로 우수한 분해력
 								</FeatureItem>
 								<FeatureItem variants={fadeInUp} animate={controls} transition={{ delay: 0.5 }}>
-									특허받은 수분 증발 방식으로 부피 90% 감소
+									폐기물 발생지에서 직접 처리
 								</FeatureItem>
 								<FeatureItem variants={fadeInUp} animate={controls} transition={{ delay: 0.6 }}>
 									악취 제거 및 해충 발생 방지 효과
 								</FeatureItem>
 								<FeatureItem variants={fadeInUp} animate={controls} transition={{ delay: 0.7 }}>
-									사용이 간편한 자동화 시스템
+									무배출 관리 시스템
 								</FeatureItem>
 							</FeaturesList>
 
@@ -323,7 +323,7 @@ const CoreTechnology: React.FC = () => {
 									감량된 폐기물의 자원화 처리
 								</FeatureItem>
 								<FeatureItem variants={fadeInUp} animate={controls} transition={{ delay: 0.7 }}>
-									환경 규제 준수 및 폐기물 처리 인증서 발급
+									환경 규제 준수
 								</FeatureItem>
 							</FeaturesList>
 
