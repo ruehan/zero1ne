@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { motion } from "framer-motion";
 import { FacebookIcon, TwitterIcon, InstagramIcon, LinkedInIcon } from "../../assets/icons/SocialIcons";
 import { MapIcon, PhoneIcon, EmailIcon, ClockIcon } from "../../assets/icons/ContactIcons";
 

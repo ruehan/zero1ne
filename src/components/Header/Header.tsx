@@ -42,16 +42,6 @@ const LogoIcon = styled.img<{ scrolled: boolean }>`
 	transition: filter 0.3s ease;
 `;
 
-const LogoText = styled.span<{ scrolled: boolean }>`
-	font-size: 1.25rem;
-	font-weight: 700;
-	color: ${({ scrolled }) => (scrolled ? "#0d5932" : "#ffffff")};
-
-	@media (max-width: 768px) {
-		font-size: 1rem;
-	}
-`;
-
 const NavContainer = styled.nav`
 	display: flex;
 	align-items: center;

@@ -5,7 +5,6 @@ import Header from "./components/Header/Header";
 import Hero from "./components/Hero/Hero";
 import Solution from "./components/Solution/Solution";
 import CoreTechnology from "./components/CoreTechnology/CoreTechnology";
-import SolutionProcess from "./components/SolutionProcess/SolutionProcess";
 import SuccessStories from "./components/SuccessStories/SuccessStories";
 import Contact from "./components/Contact/Contact";
 import EnvironmentalImpact from "./components/EnvironmentalImpact/EnvironmentalImpact";

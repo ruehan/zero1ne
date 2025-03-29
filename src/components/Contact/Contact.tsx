@@ -25,18 +25,6 @@ const ContactInner = styled.div`
 	z-index: 2;
 `;
 
-const SectionTag = styled(motion.div)`
-	display: inline-block;
-	background-color: rgba(26, 42, 108, 0.1);
-	color: #1a2a6c;
-	font-weight: 600;
-	font-size: 0.9rem;
-	padding: 6px 12px;
-	border-radius: 20px;
-	margin-bottom: 15px;
-	box-shadow: 0 2px 5px rgba(26, 42, 108, 0.05);
-`;
-
 const ContactHeader = styled.div`
 	text-align: center;
 	margin-bottom: 60px;
@@ -224,18 +212,6 @@ const Contact: React.FC = () => {
 
 	const handleContactClick = () => {
 		setModalOpen(true);
-	};
-
-	// 애니메이션 변수
-	const containerAnimation = {
-		hidden: { opacity: 0 },
-		visible: {
-			opacity: 1,
-			transition: {
-				staggerChildren: 0.1,
-				delayChildren: 0.2,
-			},
-		},
 	};
 
 	const itemAnimation = {

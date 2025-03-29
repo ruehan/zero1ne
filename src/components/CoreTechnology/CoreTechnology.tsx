@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { motion, useAnimation, useInView, Variants } from "framer-motion";
-import DambiIcon from "../../assets/icons/DambiIcon";
-import SeulmoIcon from "../../assets/icons/SeulmoIcon";
 import dambiImage from "../../assets/images/products/dambi.jpg";
 import sslmoImage from "../../assets/images/products/sslmo.jpg";
 import ContactModal from "../Modal/ContactModal";
@@ -120,29 +118,6 @@ const ProductContent = styled.div`
 	flex-direction: column;
 `;
 
-const IconContainer = styled.div`
-	width: 50px;
-	height: 50px;
-	background-color: #0d5932;
-	border-radius: 50%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	margin-bottom: 1.5rem;
-	box-shadow: 0 4px 10px rgba(13, 89, 50, 0.2);
-`;
-
-const StyledIcon = styled.div`
-	width: 24px;
-	height: 24px;
-	color: white;
-
-	& > svg {
-		width: 100%;
-		height: 100%;
-	}
-`;
-
 const ProductDescription = styled.p`
 	font-size: 1rem;
 	color: #555;
@@ -202,20 +177,6 @@ const SynergySection = styled(motion.div)`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-`;
-
-const SynergyTitle = styled.h3`
-	font-size: 1.8rem;
-	color: #0d5932;
-	margin-bottom: 1.5rem;
-`;
-
-const SynergyText = styled.p`
-	font-size: 1.1rem;
-	color: #444;
-	max-width: 800px;
-	margin: 0 auto 2rem;
-	line-height: 1.6;
 `;
 
 const CTAButton = styled(motion.button)`

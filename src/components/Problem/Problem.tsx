@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { motion, useAnimation, useInView, Variants, AnimatePresence } from "framer-motion";
+import { motion, useAnimation, useInView, Variants } from "framer-motion";
 
 // 스타일드 컴포넌트
 const ProblemSection = styled.section`
@@ -87,26 +87,9 @@ const ProcessCard = styled(motion.div)`
 	}
 `;
 
-const CardTitle = styled.h3`
-	font-size: 1.8rem;
-	color: #333;
-	margin-bottom: 20px;
-	font-weight: 700;
-	text-align: center;
-`;
-
 // 프로세스 스타일 - 문제 버전
 const ProblemProcessContainer = styled.div`
 	margin-top: 40px;
-`;
-
-const ProcessFlow = styled.div`
-	position: relative;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin: 0 auto;
-	max-width: 1000px;
 `;
 
 const ProcessRow = styled(motion.div)`
@@ -238,141 +221,6 @@ const TimeDuration = styled(motion.div)`
 	margin-top: 10px;
 `;
 
-// 솔루션 스타일
-const SolutionTitle = styled(motion.h3)`
-	font-size: 1.8rem;
-	color: #333;
-	margin: 70px 0 30px;
-	font-weight: 700;
-	text-align: center;
-`;
-
-const SolutionProcessContainer = styled(motion.div)`
-	margin-top: 40px;
-	opacity: 0;
-`;
-
-const SystemContainer = styled.div`
-	display: flex;
-	justify-content: space-between;
-	gap: 20px;
-	max-width: 1000px;
-	margin: 0 auto;
-
-	@media (max-width: 768px) {
-		flex-direction: column;
-	}
-`;
-
-const SystemCard = styled.div`
-	flex: 1;
-	background: #f9f9f9;
-	border-radius: 16px;
-	padding: 25px;
-	position: relative;
-	margin-bottom: 10px;
-
-	&::before {
-		content: "";
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		height: 8px;
-		background: ${(props) => props.color || "#ddd"};
-		border-radius: 16px 16px 0 0;
-	}
-`;
-
-const SystemTitle = styled.h4`
-	font-size: 1.2rem;
-	color: #333;
-	margin-bottom: 15px;
-	padding-bottom: 10px;
-	border-bottom: 1px solid #eee;
-	display: flex;
-	align-items: center;
-	gap: 10px;
-`;
-
-const SystemIcon = styled.div`
-	font-size: 1.4rem;
-	color: ${(props) => props.color || "#666"};
-`;
-
-const ProcessGroup = styled.div`
-	display: flex;
-	gap: 10px;
-	margin-bottom: 15px;
-
-	&:last-child {
-		margin-bottom: 0;
-	}
-`;
-
-const SmallProcessBox = styled.div<{ isActive?: boolean }>`
-	width: 60px;
-	height: 60px;
-	background: ${(props) => (props.isActive ? "rgba(76, 175, 80, 0.1)" : "white")};
-	border: 1px solid ${(props) => (props.isActive ? "#4CAF50" : "#ddd")};
-	border-radius: 8px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	padding: 5px;
-`;
-
-const SmallBoxIcon = styled.div`
-	font-size: 20px;
-	margin-bottom: 4px;
-`;
-
-const SmallBoxText = styled.div`
-	font-size: 0.7rem;
-	text-align: center;
-	color: #666;
-`;
-
-const BenefitContainer = styled(motion.div)`
-	display: flex;
-	justify-content: space-between;
-	gap: 20px;
-	margin-top: 40px;
-
-	@media (max-width: 768px) {
-		flex-direction: column;
-	}
-`;
-
-const BenefitCard = styled.div`
-	flex: 1;
-	background: white;
-	border-radius: 12px;
-	padding: 20px;
-	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-	text-align: center;
-	border: 1px solid #f0f0f0;
-`;
-
-const BenefitTitle = styled.h5`
-	font-size: 1.1rem;
-	color: #333;
-	margin-bottom: 5px;
-`;
-
-const BenefitValue = styled.div`
-	font-size: 2rem;
-	font-weight: 700;
-	color: #4caf50;
-	margin: 10px 0;
-`;
-
-const BenefitDesc = styled.p`
-	font-size: 0.9rem;
-	color: #666;
-`;
-
 // 스크롤 트리거 영역
 const ScrollTrigger = styled.div`
 	height: 200px;
@@ -408,17 +256,6 @@ const fadeInLeft: Variants = {
 	},
 };
 
-const fadeIn: Variants = {
-	hidden: { opacity: 0 },
-	visible: {
-		opacity: 1,
-		transition: {
-			duration: 0.5,
-		},
-	},
-};
-
-// 폐기물 처리 단계 데이터
 const processSteps = [
 	{ name: "발생", icon: "📦", delay: 0 },
 	{ name: "야적", icon: "📚", delay: 0.1 },
@@ -427,15 +264,6 @@ const processSteps = [
 	{ name: "선별", icon: "🔍", delay: 0.4 },
 	{ name: "건조", icon: "🔥", delay: 0.5, isHighlighted: true },
 	{ name: "재활용", icon: "♻️", delay: 0.6 },
-];
-
-// 변형된 프로세스 단계 (솔루션)
-const transformedSteps = [
-	{ name: "발생", icon: "📦", delay: 0 },
-	{ name: "건조", icon: "🔥", delay: 0.1, isHighlighted: true },
-	{ name: "선별", icon: "🔍", delay: 0.2 },
-	{ name: "운송", icon: "🚛", delay: 0.3 },
-	{ name: "재활용", icon: "♻️", delay: 0.4 },
 ];
 
 const Problem: React.FC = () => {

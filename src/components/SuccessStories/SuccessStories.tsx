@@ -20,17 +20,6 @@ const SectionHeader = styled.div`
 	margin-bottom: 4rem;
 `;
 
-const SectionTag = styled(motion.div)`
-	display: inline-block;
-	background-color: rgba(52, 152, 219, 0.1);
-	color: #3498db;
-	font-weight: 600;
-	font-size: 0.9rem;
-	padding: 6px 12px;
-	border-radius: 20px;
-	margin-bottom: 15px;
-`;
-
 const SectionTitle = styled(motion.h2)`
 	font-size: 2.5rem;
 	color: #444;
@@ -146,17 +135,6 @@ const fadeInUp: Variants = {
 		transition: {
 			duration: 0.5,
 			ease: "easeOut",
-		},
-	},
-};
-
-const fadeIn: Variants = {
-	hidden: { opacity: 0 },
-	visible: {
-		opacity: 1,
-		transition: {
-			duration: 0.6,
-			ease: "easeInOut",
 		},
 	},
 };

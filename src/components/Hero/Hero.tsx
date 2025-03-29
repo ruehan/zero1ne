@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { motion, useAnimation, Variants } from "framer-motion";
 import techImage from "../../assets/images/visual_02.png";

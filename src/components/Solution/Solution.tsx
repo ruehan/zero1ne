@@ -97,31 +97,6 @@ const CardImage = styled.div<{ image: string }>`
 	position: relative;
 `;
 
-const IconOverlay = styled.div`
-	position: absolute;
-	bottom: -25px;
-	right: 20px;
-	width: 60px;
-	height: 60px;
-	background-color: #0d5932;
-	border-radius: 50%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	box-shadow: 0 4px 10px rgba(13, 89, 50, 0.3);
-`;
-
-const StyledIcon = styled.div`
-	width: 30px;
-	height: 30px;
-	color: white;
-
-	& > svg {
-		width: 100%;
-		height: 100%;
-	}
-`;
-
 const CardContent = styled.div`
 	padding: 2rem;
 `;
@@ -210,16 +185,6 @@ const fadeInUp: Variants = {
 		transition: {
 			duration: 0.5,
 			ease: "easeOut",
-		},
-	},
-};
-
-const staggerContainer: Variants = {
-	hidden: { opacity: 0 },
-	visible: {
-		opacity: 1,
-		transition: {
-			staggerChildren: 0.1,
 		},
 	},
 };
