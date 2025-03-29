@@ -176,7 +176,7 @@ const Footer: React.FC = () => {
 				<FooterGrid>
 					<FooterColumn>
 						<Logo>
-							<img src="/logo-white.svg" alt="제로원" />
+							<img src="/logo-white.svg" alt="(주)제로원" />
 						</Logo>
 						<CompanyDescription>제로원은 유기성 폐기물 처리 솔루션을 통해 지속 가능한 미래를 만들어갑니다. 제로원의 혁신적인 기술은 환경 오염을 줄이고 순환 경제를 촉진합니다.</CompanyDescription>
 						<SocialIcons>
@@ -257,7 +257,7 @@ const Footer: React.FC = () => {
 				<Divider />
 
 				<Copyright>
-					<div>© {currentYear} 제로원. All rights reserved.</div>
+					<div> Copyright © 2025 ZERO ONE Inc. All right reserved</div>
 					<LegalLinks>
 						<LegalLink href="#">개인정보처리방침</LegalLink>
 						<LegalLink href="#">이용약관</LegalLink>
