@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { motion, useAnimation, useInView, Variants } from "framer-motion";
 import solution1 from "../../assets/images/solution1.jpg";
-import solution2 from "../../assets/images/solution2.jpg";
-import solution3 from "../../assets/images/solution3.jpg";
+import solution2 from "../../assets/images/solution2.jpeg";
+import solution3 from "../../assets/images/solution3.jpeg";
 import ContactModal from "../Modal/ContactModal";
 
 // 솔루션 데이터
