@@ -1,6 +1,6 @@
 declare global {
 	interface Window {
-		kakao: any;
+		// 필요한 전역 변수가 있다면 여기에 추가
 	}
 }
 
