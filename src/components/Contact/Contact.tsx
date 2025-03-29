@@ -242,62 +242,63 @@ const Contact: React.FC = () => {
 	};
 
 	return (
-		<ContactSection ref={sectionRef}>
-			<BackgroundDecoration>
-				<Circle />
-				<Circle />
-			</BackgroundDecoration>
+		<>
+			<ContactSection ref={sectionRef}>
+				<BackgroundDecoration>
+					<Circle />
+					<Circle />
+				</BackgroundDecoration>
 
-			<ContactInner>
-				<ContactHeader>
-					<ContactTitle initial="hidden" animate={controls} variants={itemAnimation}>
-						Contact
-					</ContactTitle>
-					<ContactSubtitle initial="hidden" animate={controls} variants={itemAnimation}>
-						제로원에 문의하시면 친절하게 답변해 드리겠습니다.
-					</ContactSubtitle>
-				</ContactHeader>
+				<ContactInner>
+					<ContactHeader>
+						<ContactTitle initial="hidden" animate={controls} variants={itemAnimation}>
+							Contact
+						</ContactTitle>
+						<ContactSubtitle initial="hidden" animate={controls} variants={itemAnimation}>
+							제로원에 문의하시면 친절하게 답변해 드리겠습니다.
+						</ContactSubtitle>
+					</ContactHeader>
 
-				<ContactContent>
-					<ContactInfo initial="hidden" animate={controls} variants={leftAnimation}>
-						<ContactCard whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 300 }}>
-							<CardIcon>📍</CardIcon>
-							<CardContent>
-								<CardTitle>주소</CardTitle>
-								<CardText>충청북도 청주시 청원구 오창읍 양청송대길 10, 308호</CardText>
-								<CardText>(주)제로원</CardText>
-							</CardContent>
-						</ContactCard>
+					<ContactContent>
+						<ContactInfo initial="hidden" animate={controls} variants={leftAnimation}>
+							<ContactCard whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 300 }}>
+								<CardIcon>📍</CardIcon>
+								<CardContent>
+									<CardTitle>주소</CardTitle>
+									<CardText>충청북도 청주시 청원구 오창읍 양청송대길 10, 308호</CardText>
+									<CardText>(주)제로원</CardText>
+								</CardContent>
+							</ContactCard>
 
-						<ContactCard whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 300 }}>
-							<CardIcon>📠</CardIcon>
-							<CardContent>
-								<CardTitle>Fax</CardTitle>
-								<CardText>0303-3441-0101</CardText>
-							</CardContent>
-						</ContactCard>
+							<ContactCard whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 300 }}>
+								<CardIcon>📠</CardIcon>
+								<CardContent>
+									<CardTitle>Fax</CardTitle>
+									<CardText>0303-3441-0101</CardText>
+								</CardContent>
+							</ContactCard>
 
-						<ContactCard whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 300 }}>
-							<CardIcon>📧</CardIcon>
-							<CardContent>
-								<CardTitle>이메일</CardTitle>
-								<CardText>zerone.khk@gmail.com</CardText>
-							</CardContent>
-						</ContactCard>
+							<ContactCard whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 300 }}>
+								<CardIcon>📧</CardIcon>
+								<CardContent>
+									<CardTitle>이메일</CardTitle>
+									<CardText>zerone.khk@gmail.com</CardText>
+								</CardContent>
+							</ContactCard>
 
-						<CTAButton whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }} onClick={handleContactClick}>
-							지금 문의하기
-						</CTAButton>
-					</ContactInfo>
+							<CTAButton whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }} onClick={handleContactClick}>
+								지금 문의하기
+							</CTAButton>
+						</ContactInfo>
 
-					<MapWrapper initial="hidden" animate={controls} variants={rightAnimation}>
-						<MapComponent position={position} popupText="(주)제로원 <br /> 충청북도 청주시 청원구 오창읍 양청송대길 10, 308호" />
-					</MapWrapper>
-				</ContactContent>
-			</ContactInner>
-
+						<MapWrapper initial="hidden" animate={controls} variants={rightAnimation}>
+							<MapComponent position={position} popupText="(주)제로원 <br /> 충청북도 청주시 청원구 오창읍 양청송대길 10, 308호" />
+						</MapWrapper>
+					</ContactContent>
+				</ContactInner>
+			</ContactSection>
 			<ContactModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
-		</ContactSection>
+		</>
 	);
 };
 
