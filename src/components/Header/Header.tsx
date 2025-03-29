@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
 import styled from "styled-components";
 import ContactModal from "../Modal/ContactModal";
-import { ReactComponent as Logo } from "../../assets/logo.svg";
+import logoImage from "../../assets/logo.png";
 
 // 스타일드 컴포넌트
 const HeaderContainer = styled(motion.header)<{ scrolled: boolean }>`
@@ -33,21 +33,13 @@ const LogoContainer = styled(motion.div)`
 	cursor: pointer;
 `;
 
-const LogoIcon = styled(Logo)`
-	height: 32px;
+const LogoIcon = styled.img<{ scrolled: boolean }>`
+	height: 45px;
 	width: auto;
 	margin-right: 8px;
-	color: ${(props) => props.color || "#ffffff"};
-`;
-
-const LogoText = styled.span<{ scrolled: boolean }>`
-	font-size: 1.25rem;
-	font-weight: 700;
-	color: ${({ scrolled }) => (scrolled ? "#0d5932" : "#ffffff")};
-
-	@media (max-width: 768px) {
-		font-size: 1rem;
-	}
+	filter: ${({ scrolled }) =>
+		scrolled ? "brightness(0) saturate(100%) invert(25%) sepia(94%) saturate(526%) hue-rotate(107deg) brightness(95%) contrast(90%)" : "brightness(0) saturate(100%) invert(100%)"};
+	transition: filter 0.3s ease;
 `;
 
 const NavContainer = styled.nav`
@@ -74,7 +66,7 @@ const NavLink = styled.a<{ isActive?: boolean; scrolled: boolean }>`
 	text-decoration: none;
 	color: ${(props) => {
 		if (props.scrolled) {
-			return props.isActive ? "#0d5932" : "#333";
+			return props.isActive ? "#2563eb" : "#333";
 		}
 		return props.isActive ? "#ffffff" : "#f0f0f0";
 	}};
@@ -86,7 +78,7 @@ const NavLink = styled.a<{ isActive?: boolean; scrolled: boolean }>`
 	transition: color 0.2s ease;
 
 	&:hover {
-		color: ${(props) => (props.scrolled ? "#0d5932" : "#ffffff")};
+		color: ${(props) => (props.scrolled ? "#2563eb" : "#ffffff")};
 	}
 
 	&::after {
@@ -96,7 +88,7 @@ const NavLink = styled.a<{ isActive?: boolean; scrolled: boolean }>`
 		left: 0;
 		width: 100%;
 		height: 2px;
-		background-color: ${(props) => (props.scrolled ? "#0d5932" : "#ffffff")};
+		background-color: ${(props) => (props.scrolled ? "#2563eb" : "#ffffff")};
 		transform: scaleX(${(props) => (props.isActive ? 1 : 0)});
 		transition: transform 0.3s ease;
 		transform-origin: bottom right;
@@ -108,23 +100,23 @@ const NavLink = styled.a<{ isActive?: boolean; scrolled: boolean }>`
 	}
 `;
 
-const ContactButton = styled(motion.button)`
-	background-color: #0d5932;
+const ContactButton = styled(motion.button)<{ scrolled: boolean }>`
+	background-color: ${(props) => (props.scrolled ? "#1e40af" : "#2563eb")};
 	color: white;
-	border: none;
+	border: ${(props) => (props.scrolled ? "none" : "2px solid #fff")};
 	border-radius: 4px;
 	padding: 0.8rem 1.5rem;
 	font-size: 0.9rem;
 	font-weight: 600;
 	cursor: pointer;
 	margin-left: 1.5rem;
-	box-shadow: 0 4px 10px rgba(13, 89, 50, 0.2);
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 	transition: all 0.2s ease;
 
 	&:hover {
-		background-color: #0a4527;
+		background-color: ${(props) => (props.scrolled ? "#1e3a8a" : "#1d4ed8")};
 		transform: translateY(-2px);
-		box-shadow: 0 6px 15px rgba(13, 89, 50, 0.3);
+		box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 	}
 
 	@media (max-width: 1024px) {
@@ -151,7 +143,7 @@ const MobileMenuButton = styled.button`
 const MobileMenuLine = styled.span<{ isOpen?: boolean; scrolled: boolean }>`
 	width: 100%;
 	height: 2px;
-	background-color: ${(props) => (props.scrolled ? "#0d5932" : "#ffffff")};
+	background-color: ${(props) => (props.scrolled ? "#2563eb" : "#ffffff")};
 	transition: all 0.3s ease;
 
 	&:nth-child(1) {
@@ -196,7 +188,7 @@ const MobileNavItem = styled.li`
 
 const MobileNavLink = styled.a<{ isActive?: boolean }>`
 	text-decoration: none;
-	color: ${(props) => (props.isActive ? "#0d5932" : "#333")};
+	color: ${(props) => (props.isActive ? "#2563eb" : "#333")};
 	font-weight: ${(props) => (props.isActive ? "700" : "500")};
 	display: block;
 	padding: 0.5rem 0;
@@ -204,7 +196,7 @@ const MobileNavLink = styled.a<{ isActive?: boolean }>`
 `;
 
 const MobileContactButton = styled(motion.button)`
-	background-color: #0d5932;
+	background-color: #2563eb;
 	color: white;
 	border: none;
 	border-radius: 4px;
@@ -214,6 +206,12 @@ const MobileContactButton = styled(motion.button)`
 	margin-top: 2rem;
 	width: 100%;
 	cursor: pointer;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+
+	&:hover {
+		background-color: #1d4ed8;
+		box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+	}
 `;
 
 const Header: React.FC = () => {
@@ -270,8 +268,7 @@ const Header: React.FC = () => {
 		<>
 			<HeaderContainer scrolled={scrolled} initial={{ y: -100, opacity: 0 }} animate={controls}>
 				<LogoContainer whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-					<LogoIcon color={scrolled ? "#0d5932" : "#ffffff"} />
-					<LogoText scrolled={scrolled}>ZERO ONE Inc.</LogoText>
+					<LogoIcon src={logoImage} scrolled={scrolled} />
 				</LogoContainer>
 
 				<NavContainer>
@@ -286,7 +283,7 @@ const Header: React.FC = () => {
 					</NavItems>
 				</NavContainer>
 
-				<ContactButton whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => setModalOpen(true)}>
+				<ContactButton scrolled={scrolled} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => setModalOpen(true)}>
 					솔루션 도입 문의
 				</ContactButton>
 

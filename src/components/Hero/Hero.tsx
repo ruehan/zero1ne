@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState, useCallback } from "react";
 import styled from "styled-components";
-import { motion, useAnimation, Variants } from "framer-motion";
-import techImage from "../../assets/images/visual_02.png";
+import YouTube, { YouTubeProps, YouTubeEvent } from "react-youtube";
+import ContactModal from "../Modal/ContactModal";
 
 // 스타일드 컴포넌트
 const HeroSection = styled.section`
@@ -56,7 +56,7 @@ const RightContent = styled.div`
 	}
 `;
 
-const Headline = styled(motion.h1)`
+const Headline = styled.h1`
 	font-size: 3.5rem;
 	font-weight: 800;
 	line-height: 1.2;
@@ -84,7 +84,7 @@ const TextHighlight = styled.span`
 	}
 `;
 
-const Description = styled(motion.p)`
+const Description = styled.p`
 	font-size: 1.1rem;
 	line-height: 1.6;
 	margin-bottom: 2rem;
@@ -95,7 +95,7 @@ const Description = styled(motion.p)`
 	}
 `;
 
-const ButtonContainer = styled(motion.div)`
+const ButtonContainer = styled.div`
 	display: flex;
 	gap: 1rem;
 	margin-bottom: 3rem;
@@ -109,7 +109,7 @@ const ButtonContainer = styled(motion.div)`
 	}
 `;
 
-const Button = styled(motion.button)`
+const Button = styled.button`
 	padding: 0.8rem 1.8rem;
 	border-radius: 4px;
 	font-weight: 600;
@@ -124,27 +124,30 @@ const Button = styled(motion.button)`
 `;
 
 const PrimaryButton = styled(Button)`
-	background-color: #0d5932;
+	background-color: #2563eb;
 	color: white;
-	box-shadow: 0 4px 10px rgba(13, 89, 50, 0.3);
+	border: 2px solid #fff;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 
 	&:hover {
-		background-color: #0a4527;
-		box-shadow: 0 6px 15px rgba(13, 89, 50, 0.4);
+		background-color: #1d4ed8;
+		box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
 	}
 `;
 
 const SecondaryButton = styled(Button)`
-	background-color: transparent;
+	background-color: rgba(255, 255, 255, 0.15);
 	color: white;
-	border: 2px solid white;
+	border: 2px solid #fff;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 
 	&:hover {
-		background-color: rgba(255, 255, 255, 0.1);
+		background-color: rgba(255, 255, 255, 0.25);
+		box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 	}
 `;
 
-const StatsContainer = styled(motion.div)`
+const StatsContainer = styled.div`
 	display: flex;
 	gap: 2rem;
 
@@ -155,7 +158,7 @@ const StatsContainer = styled(motion.div)`
 	}
 `;
 
-const StatItem = styled(motion.div)`
+const StatItem = styled.div`
 	display: flex;
 	flex-direction: column;
 `;
@@ -171,27 +174,49 @@ const StatLabel = styled.span`
 	color: rgba(255, 255, 255, 0.8);
 `;
 
-const TechImageContainer = styled(motion.div)`
-	width: 80%;
-	max-width: 500px;
+const GradientOverlay = styled.div`
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: radial-gradient(circle at 70% 30%, rgba(141, 255, 190, 0.1) 0%, transparent 60%);
+	z-index: 1;
+`;
+
+// 유튜브 영상 관련 컴포넌트
+const VideoContainer = styled.div`
+	width: 100%;
+	max-width: 600px;
 	height: auto;
 	position: relative;
+	border-radius: 12px;
+	overflow: hidden;
+	box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 
 	@media (max-width: 1024px) {
-		width: 70%;
-		max-width: 350px;
+		width: 90%;
+		max-width: 500px;
 	}
 `;
 
-const TechImage = styled(motion.img)`
-	width: 100%;
-	height: auto;
-	object-fit: contain;
-	border-radius: 12px;
-	box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+const VideoWrapper = styled.div`
+	position: relative;
+	padding-bottom: 56.25%; /* 16:9 비율 */
+	height: 0;
+	overflow: hidden;
+
+	iframe {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		border: 0;
+	}
 `;
 
-const TechImageGlow = styled(motion.div)`
+const VideoGlow = styled.div`
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -203,161 +228,8 @@ const TechImageGlow = styled(motion.div)`
 	z-index: -1;
 `;
 
-const GradientOverlay = styled(motion.div)`
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: radial-gradient(circle at 70% 30%, rgba(141, 255, 190, 0.1) 0%, transparent 60%);
-	z-index: 1;
-`;
-
-// 애니메이션 설정
-const fadeIn: Variants = {
-	hidden: { opacity: 0, y: 20 },
-	visible: {
-		opacity: 1,
-		y: 0,
-		transition: {
-			duration: 0.6,
-			ease: "easeOut",
-		},
-	},
-};
-
-const staggerChildren = {
-	hidden: { opacity: 0 },
-	visible: {
-		opacity: 1,
-		transition: {
-			staggerChildren: 0.2,
-			delayChildren: 0.3,
-		},
-	},
-};
-
-const imageAnimation: Variants = {
-	hidden: { opacity: 0, scale: 0.8, y: 20 },
-	visible: {
-		opacity: 1,
-		scale: 1,
-		y: 0,
-		transition: {
-			duration: 0.8,
-			ease: "easeOut",
-			delay: 0.5,
-		},
-	},
-};
-
-const pulseAnimation = {
-	initial: { scale: 1 },
-	pulse: {
-		scale: 1.05,
-		transition: {
-			yoyo: Infinity,
-			duration: 2,
-			ease: "easeInOut",
-		},
-	},
-};
-
-const Hero: React.FC = () => {
-	const controls = useAnimation();
-
-	// 애니메이션 시작
-	useEffect(() => {
-		controls.start("visible");
-	}, [controls]);
-
-	return (
-		<HeroSection id="hero">
-			<GradientOverlay
-				initial={{ opacity: 0 }}
-				animate={{
-					opacity: 1,
-					y: [0, -15, 0],
-				}}
-				transition={{
-					opacity: { duration: 1.5 },
-					y: {
-						repeat: Infinity,
-						duration: 3,
-						ease: "easeInOut",
-					},
-				}}
-			/>
-
-			<HeroContent>
-				<LeftContent>
-					<Headline variants={fadeIn} initial="hidden" animate={controls}>
-						식품 폐기물의 <br />
-						<TextHighlight>순환 경제</TextHighlight> 구축
-					</Headline>
-
-					<Description variants={fadeIn} initial="hidden" animate={controls} transition={{ delay: 0.2 }}>
-						제로원은 첨단 기술을 활용하여 식품 폐기물을 자원으로 변환합니다. 친환경적이고 지속 가능한 방식으로 순환 경제를 구현하며 환경 보호와 경제적 이익을 동시에 제공합니다.
-					</Description>
-
-					<ButtonContainer variants={staggerChildren} initial="hidden" animate={controls} transition={{ delay: 0.4 }}>
-						<PrimaryButton variants={fadeIn} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-							솔루션 알아보기
-						</PrimaryButton>
-
-						<SecondaryButton variants={fadeIn} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-							무료 상담 신청
-						</SecondaryButton>
-					</ButtonContainer>
-
-					<StatsContainer variants={staggerChildren} initial="hidden" animate={controls} transition={{ delay: 0.6 }}>
-						{/* <StatItem variants={fadeIn}>
-							<StatValue>30%</StatValue>
-							<StatLabel>연간 CO2 감소</StatLabel>
-						</StatItem> */}
-
-						<StatItem variants={fadeIn}>
-							<StatValue>85%</StatValue>
-							<StatLabel>자원 재활용률</StatLabel>
-						</StatItem>
-
-						<StatItem variants={fadeIn}>
-							<StatValue>30%</StatValue>
-							<StatLabel>운영 비용 절감</StatLabel>
-						</StatItem>
-					</StatsContainer>
-				</LeftContent>
-
-				<RightContent>
-					<TechImageContainer variants={imageAnimation} initial="hidden" animate={controls}>
-						<TechImage src={techImage} alt="순환 경제 기술" variants={pulseAnimation} initial="initial" animate="pulse" />
-						<TechImageGlow variants={pulseAnimation} initial="initial" animate="pulse" />
-					</TechImageContainer>
-				</RightContent>
-			</HeroContent>
-
-			{/* 스크롤 다운 인디케이터 */}
-			<ScrollDownLink href="#solution" variants={fadeIn} initial="hidden" animate={controls} transition={{ delay: 1.2 }}>
-				<ScrollText>더 알아보기</ScrollText>
-				<ScrollDownIcon
-					animate={{ y: [0, 10, 0] }}
-					transition={{
-						repeat: Infinity,
-						duration: 1.5,
-						ease: "easeInOut",
-					}}
-				>
-					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-						<path d="M12 5v14M5 12l7 7 7-7" />
-					</svg>
-				</ScrollDownIcon>
-			</ScrollDownLink>
-		</HeroSection>
-	);
-};
-
-// 스타일 컴포넌트 추가
-const ScrollDownLink = styled(motion.a)`
+// 스크롤 인디케이터
+const ScrollDownLink = styled.a`
 	position: absolute;
 	bottom: 40px;
 	left: 50%;
@@ -387,15 +259,126 @@ const ScrollText = styled.span`
 	letter-spacing: 1px;
 `;
 
-const ScrollDownIcon = styled(motion.div)`
+const ScrollDownIcon = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	animation: bounce 2s infinite;
+
+	@keyframes bounce {
+		0%,
+		20%,
+		50%,
+		80%,
+		100% {
+			transform: translateY(0);
+		}
+		40% {
+			transform: translateY(-10px);
+		}
+		60% {
+			transform: translateY(-5px);
+		}
+	}
 
 	svg {
 		width: 28px;
 		height: 28px;
 	}
 `;
+
+const Hero: React.FC = () => {
+	const [modalOpen, setModalOpen] = useState(false);
+
+	const handleSolutionClick = () => {
+		// 솔루션 섹션으로 스크롤
+		document.getElementById("solution")?.scrollIntoView({ behavior: "smooth" });
+	};
+
+	const handleContactClick = () => {
+		setModalOpen(true);
+	};
+
+	// 유튜브 옵션
+	const opts: YouTubeProps["opts"] = {
+		height: "100%",
+		width: "100%",
+		playerVars: {
+			// https://developers.google.com/youtube/player_parameters
+			autoplay: 1,
+			mute: 1,
+			controls: 1,
+			rel: 0,
+			modestbranding: 1,
+			loop: 1,
+			playlist: "KZTcZZHada0", // 반복 재생을 위해 필요
+		},
+	};
+
+	// 비디오 준비 완료 핸들러
+	const onReady = useCallback((event: YouTubeEvent) => {
+		// 필요한 경우 추가 로직 구현
+		event.target.playVideo();
+	}, []);
+
+	return (
+		<>
+			<HeroSection id="hero">
+				<GradientOverlay />
+
+				<HeroContent>
+					<LeftContent>
+						<Headline>
+							식품 폐기물의 <br />
+							<TextHighlight>순환 경제</TextHighlight> 구축
+						</Headline>
+
+						<Description>
+							제로원은 첨단 기술을 활용하여 식품 폐기물을 자원으로 변환합니다. 친환경적이고 지속 가능한 방식으로 순환 경제를 구현하며 환경 보호와 경제적 이익을 동시에 제공합니다.
+						</Description>
+
+						<ButtonContainer>
+							<PrimaryButton onClick={handleSolutionClick}>솔루션 알아보기</PrimaryButton>
+
+							<SecondaryButton onClick={handleContactClick}>무료 상담 신청</SecondaryButton>
+						</ButtonContainer>
+
+						<StatsContainer>
+							<StatItem>
+								<StatValue>85%</StatValue>
+								<StatLabel>자원 재활용률</StatLabel>
+							</StatItem>
+
+							<StatItem>
+								<StatValue>30%</StatValue>
+								<StatLabel>운영 비용 절감</StatLabel>
+							</StatItem>
+						</StatsContainer>
+					</LeftContent>
+
+					<RightContent>
+						<VideoContainer>
+							<VideoWrapper>
+								<YouTube videoId="KZTcZZHada0" opts={opts} onReady={onReady} />
+							</VideoWrapper>
+							<VideoGlow />
+						</VideoContainer>
+					</RightContent>
+				</HeroContent>
+
+				{/* 스크롤 다운 인디케이터 */}
+				<ScrollDownLink href="#solution">
+					<ScrollText>더 알아보기</ScrollText>
+					<ScrollDownIcon>
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+							<path d="M12 5v14M5 12l7 7 7-7" />
+						</svg>
+					</ScrollDownIcon>
+				</ScrollDownLink>
+			</HeroSection>
+			<ContactModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
+		</>
+	);
+};
 
 export default Hero;

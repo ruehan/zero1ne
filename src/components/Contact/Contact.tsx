@@ -1,7 +1,8 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import { motion, useAnimation, useInView } from "framer-motion";
-// import MapComponent from "./MapComponent";
+import MapComponent from "./MapComponent";
+import ContactModal from "../Modal/ContactModal";
 
 // 스타일드 컴포넌트
 const ContactSection = styled.section`
@@ -22,18 +23,6 @@ const ContactInner = styled.div`
 	align-items: center;
 	position: relative;
 	z-index: 2;
-`;
-
-const SectionTag = styled(motion.div)`
-	display: inline-block;
-	background-color: rgba(26, 42, 108, 0.1);
-	color: #1a2a6c;
-	font-weight: 600;
-	font-size: 0.9rem;
-	padding: 6px 12px;
-	border-radius: 20px;
-	margin-bottom: 15px;
-	box-shadow: 0 2px 5px rgba(26, 42, 108, 0.05);
 `;
 
 const ContactHeader = styled.div`
@@ -144,7 +133,7 @@ const CardText = styled.div`
 `;
 
 const CTAButton = styled(motion.button)`
-	background: linear-gradient(90deg, #1a2a6c 0%, #b21f1f 100%);
+	background: linear-gradient(90deg, #1e40af 0%, #3b82f6 100%);
 	border: none;
 	padding: 16px 32px;
 	border-radius: 8px;
@@ -154,11 +143,11 @@ const CTAButton = styled(motion.button)`
 	cursor: pointer;
 	margin-top: 30px;
 	transition: all 0.3s ease;
-	box-shadow: 0 4px 15px rgba(26, 42, 108, 0.3);
+	box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
 
 	&:hover {
 		transform: translateY(-2px);
-		box-shadow: 0 8px 20px rgba(26, 42, 108, 0.4);
+		box-shadow: 0 8px 20px rgba(37, 99, 235, 0.5);
 	}
 `;
 
@@ -211,6 +200,7 @@ const Contact: React.FC = () => {
 	const controls = useAnimation();
 	const sectionRef = useRef(null);
 	const isInView = useInView(sectionRef, { once: false, amount: 0.2 });
+	const [modalOpen, setModalOpen] = useState(false);
 
 	const position: [number, number] = [36.7125, 127.4385];
 
@@ -221,20 +211,7 @@ const Contact: React.FC = () => {
 	}, [controls, isInView]);
 
 	const handleContactClick = () => {
-		// 문의하기 버튼 클릭 시 처리 로직
-		alert("문의하기가 클릭되었습니다. 여기에 모달 또는 폼 표시 로직을 추가하세요.");
-	};
-
-	// 애니메이션 변수
-	const containerAnimation = {
-		hidden: { opacity: 0 },
-		visible: {
-			opacity: 1,
-			transition: {
-				staggerChildren: 0.1,
-				delayChildren: 0.2,
-			},
-		},
+		setModalOpen(true);
 	};
 
 	const itemAnimation = {
@@ -265,60 +242,63 @@ const Contact: React.FC = () => {
 	};
 
 	return (
-		<ContactSection ref={sectionRef}>
-			<BackgroundDecoration>
-				<Circle />
-				<Circle />
-			</BackgroundDecoration>
+		<>
+			<ContactSection ref={sectionRef}>
+				<BackgroundDecoration>
+					<Circle />
+					<Circle />
+				</BackgroundDecoration>
 
-			<ContactInner>
-				<ContactHeader>
-					<ContactTitle initial="hidden" animate={controls} variants={itemAnimation}>
-						Contact
-					</ContactTitle>
-					<ContactSubtitle initial="hidden" animate={controls} variants={itemAnimation}>
-						제로원에 문의하시면 친절하게 답변해 드리겠습니다.
-					</ContactSubtitle>
-				</ContactHeader>
+				<ContactInner>
+					<ContactHeader>
+						<ContactTitle initial="hidden" animate={controls} variants={itemAnimation}>
+							Contact
+						</ContactTitle>
+						<ContactSubtitle initial="hidden" animate={controls} variants={itemAnimation}>
+							제로원에 문의하시면 친절하게 답변해 드리겠습니다.
+						</ContactSubtitle>
+					</ContactHeader>
 
-				<ContactContent>
-					<ContactInfo initial="hidden" animate={controls} variants={leftAnimation}>
-						<ContactCard whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 300 }}>
-							<CardIcon>📍</CardIcon>
-							<CardContent>
-								<CardTitle>주소</CardTitle>
-								<CardText>충청북도 청주시 청원구 오창읍 양청송대길 10, 308호</CardText>
-								<CardText>(주)제로원</CardText>
-							</CardContent>
-						</ContactCard>
+					<ContactContent>
+						<ContactInfo initial="hidden" animate={controls} variants={leftAnimation}>
+							<ContactCard whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 300 }}>
+								<CardIcon>📍</CardIcon>
+								<CardContent>
+									<CardTitle>주소</CardTitle>
+									<CardText>충청북도 청주시 청원구 오창읍 양청송대길 10, 308호</CardText>
+									<CardText>(주)제로원</CardText>
+								</CardContent>
+							</ContactCard>
 
-						<ContactCard whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 300 }}>
-							<CardIcon>📠</CardIcon>
-							<CardContent>
-								<CardTitle>Fax</CardTitle>
-								<CardText>0303-3441-0101</CardText>
-							</CardContent>
-						</ContactCard>
+							<ContactCard whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 300 }}>
+								<CardIcon>📠</CardIcon>
+								<CardContent>
+									<CardTitle>Fax</CardTitle>
+									<CardText>0303-3441-0101</CardText>
+								</CardContent>
+							</ContactCard>
 
-						<ContactCard whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 300 }}>
-							<CardIcon>📧</CardIcon>
-							<CardContent>
-								<CardTitle>이메일</CardTitle>
-								<CardText>zerone.khk@gmail.com</CardText>
-							</CardContent>
-						</ContactCard>
+							<ContactCard whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 300 }}>
+								<CardIcon>📧</CardIcon>
+								<CardContent>
+									<CardTitle>이메일</CardTitle>
+									<CardText>zerone.khk@gmail.com</CardText>
+								</CardContent>
+							</ContactCard>
 
-						<CTAButton whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }} onClick={handleContactClick}>
-							지금 문의하기
-						</CTAButton>
-					</ContactInfo>
+							<CTAButton whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }} onClick={handleContactClick}>
+								지금 문의하기
+							</CTAButton>
+						</ContactInfo>
 
-					<MapWrapper initial="hidden" animate={controls} variants={rightAnimation}>
-						{/* <MapComponent position={position} popupText="제로원 <br /> 충청북도 청주시 청원구 오창읍 양청송대길 10, 308호" /> */}
-					</MapWrapper>
-				</ContactContent>
-			</ContactInner>
-		</ContactSection>
+						<MapWrapper initial="hidden" animate={controls} variants={rightAnimation}>
+							<MapComponent position={position} popupText="(주)제로원 <br /> 충청북도 청주시 청원구 오창읍 양청송대길 10, 308호" />
+						</MapWrapper>
+					</ContactContent>
+				</ContactInner>
+			</ContactSection>
+			<ContactModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
+		</>
 	);
 };
 

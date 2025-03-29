@@ -1,12 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { motion, useAnimation, useInView, Variants } from "framer-motion";
-import RecycleIcon from "../../assets/icons/RecycleIcon";
-import MonitorIcon from "../../assets/icons/MonitorIcon";
-import ConsultIcon from "../../assets/icons/ConsultIcon";
 import solution1 from "../../assets/images/solution1.jpg";
-import solution2 from "../../assets/images/solution2.jpg";
-import solution3 from "../../assets/images/solution3.jpg";
+import solution2 from "../../assets/images/solution2.jpeg";
+import solution3 from "../../assets/images/solution3.jpeg";
+import ContactModal from "../Modal/ContactModal";
 
 // 솔루션 데이터
 const solutionsData = [
@@ -99,31 +97,6 @@ const CardImage = styled.div<{ image: string }>`
 	position: relative;
 `;
 
-const IconOverlay = styled.div`
-	position: absolute;
-	bottom: -25px;
-	right: 20px;
-	width: 60px;
-	height: 60px;
-	background-color: #0d5932;
-	border-radius: 50%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	box-shadow: 0 4px 10px rgba(13, 89, 50, 0.3);
-`;
-
-const StyledIcon = styled.div`
-	width: 30px;
-	height: 30px;
-	color: white;
-
-	& > svg {
-		width: 100%;
-		height: 100%;
-	}
-`;
-
 const CardContent = styled.div`
 	padding: 2rem;
 `;
@@ -185,7 +158,7 @@ const CTAContainer = styled(motion.div)`
 `;
 
 const CTAButton = styled(motion.button)`
-	background-color: #0d5932;
+	background-color: #2563eb;
 	color: white;
 	border: none;
 	padding: 1rem 2rem;
@@ -193,13 +166,13 @@ const CTAButton = styled(motion.button)`
 	font-weight: 600;
 	border-radius: 0.5rem;
 	cursor: pointer;
-	box-shadow: 0 4px 10px rgba(13, 89, 50, 0.2);
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 	transition: transform 0.2s, box-shadow 0.2s;
 
 	&:hover {
-		background-color: #0a4527;
+		background-color: #1d4ed8;
 		transform: translateY(-2px);
-		box-shadow: 0 6px 15px rgba(13, 89, 50, 0.3);
+		box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 	}
 `;
 
@@ -212,16 +185,6 @@ const fadeInUp: Variants = {
 		transition: {
 			duration: 0.5,
 			ease: "easeOut",
-		},
-	},
-};
-
-const staggerContainer: Variants = {
-	hidden: { opacity: 0 },
-	visible: {
-		opacity: 1,
-		transition: {
-			staggerChildren: 0.1,
 		},
 	},
 };
@@ -242,6 +205,7 @@ const Solution: React.FC = () => {
 	const controls = useAnimation();
 	const sectionRef = useRef(null);
 	const isInView = useInView(sectionRef, { once: true, amount: 0.3 });
+	const [modalOpen, setModalOpen] = useState(false);
 
 	useEffect(() => {
 		if (isInView) {
@@ -250,58 +214,61 @@ const Solution: React.FC = () => {
 	}, [controls, isInView]);
 
 	return (
-		<SectionContainer ref={sectionRef}>
-			<SectionInner>
-				<SectionHeader variants={fadeInUp} initial="hidden" animate={controls}>
-					<SectionTitle>ZERO ONE SOLUTION</SectionTitle>
-					<SectionDescription>유기성 폐기물을 자원화하기 위한 제로원의 솔루션</SectionDescription>
-				</SectionHeader>
+		<>
+			<SectionContainer ref={sectionRef}>
+				<SectionInner>
+					<SectionHeader variants={fadeInUp} initial="hidden" animate={controls}>
+						<SectionTitle>ZERO ONE SOLUTION</SectionTitle>
+						<SectionDescription>유기성 폐기물을 자원화하기 위한 제로원의 솔루션</SectionDescription>
+					</SectionHeader>
 
-				<CardsContainer>
-					{solutionsData.map((solution, index) => {
-						return (
-							<SolutionCard
-								key={solution.id}
-								variants={{
-									...fadeInUp,
-									rest: cardHover.rest,
-									hover: cardHover.hover,
-								}}
-								initial="hidden"
-								animate={controls}
-								transition={{ delay: index * 0.2 }}
-								whileHover="hover"
-							>
-								<CardImage image={solution.image}></CardImage>
+					<CardsContainer>
+						{solutionsData.map((solution, index) => {
+							return (
+								<SolutionCard
+									key={solution.id}
+									variants={{
+										...fadeInUp,
+										rest: cardHover.rest,
+										hover: cardHover.hover,
+									}}
+									initial="hidden"
+									animate={controls}
+									transition={{ delay: index * 0.2 }}
+									whileHover="hover"
+								>
+									<CardImage image={solution.image}></CardImage>
 
-								<CardContent>
-									<CardTitle>{solution.title}</CardTitle>
-									<CardDescription>{solution.description}</CardDescription>
+									<CardContent>
+										<CardTitle>{solution.title}</CardTitle>
+										<CardDescription>{solution.description}</CardDescription>
 
-									<BenefitsList>
-										{solution.benefits.map((benefit, i) => (
-											<BenefitItem key={i} variants={fadeInUp} initial="hidden" animate={controls} transition={{ delay: 0.3 + index * 0.1 + i * 0.05 }}>
-												{benefit}
-											</BenefitItem>
-										))}
-									</BenefitsList>
+										<BenefitsList>
+											{solution.benefits.map((benefit, i) => (
+												<BenefitItem key={i} variants={fadeInUp} initial="hidden" animate={controls} transition={{ delay: 0.3 + index * 0.1 + i * 0.05 }}>
+													{benefit}
+												</BenefitItem>
+											))}
+										</BenefitsList>
 
-									<LearnMoreLink href={`#${solution.id}`} whileHover={{ x: 5 }} whileTap={{ scale: 0.95 }}>
-										자세히 알아보기
-									</LearnMoreLink>
-								</CardContent>
-							</SolutionCard>
-						);
-					})}
-				</CardsContainer>
+										<LearnMoreLink href={`#${solution.id}`} whileHover={{ x: 5 }} whileTap={{ scale: 0.95 }}>
+											자세히 알아보기
+										</LearnMoreLink>
+									</CardContent>
+								</SolutionCard>
+							);
+						})}
+					</CardsContainer>
 
-				<CTAContainer variants={fadeInUp} initial="hidden" animate={controls} transition={{ delay: 0.6 }}>
-					<CTAButton whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-						맞춤형 솔루션 문의하기
-					</CTAButton>
-				</CTAContainer>
-			</SectionInner>
-		</SectionContainer>
+					<CTAContainer variants={fadeInUp} initial="hidden" animate={controls} transition={{ delay: 0.6 }}>
+						<CTAButton whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => setModalOpen(true)}>
+							맞춤형 솔루션 문의하기
+						</CTAButton>
+					</CTAContainer>
+				</SectionInner>
+			</SectionContainer>
+			<ContactModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
+		</>
 	);
 };
 

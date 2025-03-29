@@ -231,14 +231,6 @@ const StepDescription = styled.p`
 	margin-bottom: 20px;
 `;
 
-const StepIcon = styled.div`
-	font-size: 2.5rem;
-	color: rgba(13, 89, 50, 0.1);
-	position: absolute;
-	top: 20px;
-	right: 20px;
-`;
-
 const StepLink = styled.a`
 	color: #0d5932;
 	text-decoration: none;
@@ -262,26 +254,6 @@ const StepLink = styled.a`
 	&:hover::after {
 		transform: translateX(3px);
 	}
-`;
-
-const ImageContainer = styled.div`
-	width: 100%;
-	height: 150px;
-	margin-bottom: 20px;
-	border-radius: 8px;
-	overflow: hidden;
-	background-color: #f5f5f5;
-`;
-
-const StepImage = styled.div`
-	width: 100%;
-	height: 100%;
-	background-color: rgba(13, 89, 50, 0.1);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-size: 4rem;
-	color: #0d5932;
 `;
 
 const CTAContainer = styled(motion.div)`
@@ -308,129 +280,6 @@ const CTAButton = styled(motion.button)`
 	}
 `;
 
-const ProblemHeader = styled(motion.div)`
-	text-align: center;
-	margin-bottom: 30px;
-`;
-
-const ProblemTag = styled(motion.div)`
-	display: inline-block;
-	background-color: rgba(13, 89, 50, 0.1);
-	color: #0d5932;
-	font-weight: 600;
-	font-size: 0.9rem;
-	padding: 6px 12px;
-	border-radius: 20px;
-	margin-bottom: 15px;
-`;
-
-const ProcessTimeline = styled(motion.div)`
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	margin: 30px 0 60px;
-	position: relative;
-
-	@media (max-width: 768px) {
-		flex-direction: column;
-		align-items: center;
-	}
-`;
-
-const ProcessStep = styled(motion.div)<{ active?: boolean }>`
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	width: 120px;
-	position: relative;
-
-	@media (max-width: 768px) {
-		width: 100%;
-		margin-bottom: 30px;
-		flex-direction: row;
-		justify-content: flex-start;
-		align-items: center;
-	}
-`;
-
-const ProcessIcon = styled.div<{ active?: boolean }>`
-	width: 80px;
-	height: 80px;
-	background-color: ${(props) => (props.active ? "#3498db" : "#f2f2f2")};
-	border-radius: 10px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	margin-bottom: 15px;
-	box-shadow: ${(props) => (props.active ? "0 5px 15px rgba(52, 152, 219, 0.3)" : "0 5px 15px rgba(0, 0, 0, 0.05)")};
-
-	@media (max-width: 768px) {
-		width: 60px;
-		height: 60px;
-		margin-right: 15px;
-		margin-bottom: 0;
-	}
-`;
-
-const ProcessStepName = styled.div<{ active?: boolean }>`
-	font-weight: ${(props) => (props.active ? "700" : "500")};
-	font-size: 1rem;
-	text-align: center;
-	color: ${(props) => (props.active ? "#333" : "#777")};
-
-	@media (max-width: 768px) {
-		text-align: left;
-	}
-`;
-
-const TimeConnector = styled(motion.div)`
-	position: absolute;
-	height: 2px;
-	background-color: #e0e0e0;
-	top: 40px;
-	left: 60px;
-	right: 60px;
-	z-index: -1;
-
-	@media (max-width: 768px) {
-		display: none;
-	}
-`;
-
-const TimeSection = styled(motion.div)`
-	display: flex;
-	justify-content: space-between;
-	margin-top: 20px;
-
-	@media (max-width: 768px) {
-		flex-direction: column;
-	}
-`;
-
-const TimePeriod = styled.div`
-	text-align: center;
-	width: 50%;
-
-	@media (max-width: 768px) {
-		width: 100%;
-		margin-bottom: 20px;
-	}
-`;
-
-const TimeLabel = styled.div`
-	font-weight: 600;
-	font-size: 1rem;
-	color: #555;
-	margin-bottom: 5px;
-`;
-
-const TimeDuration = styled.div`
-	font-weight: 700;
-	font-size: 1.5rem;
-	color: ${(props) => props.color || "#3498db"};
-`;
-
-// 공정 단계 데이터 업데이트
 const processSteps = [
 	{
 		number: "01",
@@ -469,20 +318,6 @@ const processSteps = [
 		isEven: true,
 	},
 ];
-
-// 폐기물 처리 프로세스 단계 데이터
-const wasteProcessSteps = [
-	{ name: "발생", icon: "📦", active: false },
-	{ name: "야적", icon: "📚", active: false },
-	{ name: "수집", icon: "🚚", active: false },
-	{ name: "운송", icon: "🚛", active: false },
-	{ name: "선별", icon: "🔍", active: false },
-	{ name: "건조", icon: "🔥", active: true },
-	{ name: "운송", icon: "🚛", active: false },
-	{ name: "재활용", icon: "♻️", active: false },
-];
-
-// 애니메이션 설정
 const fadeInUp: Variants = {
 	hidden: { opacity: 0, y: 30 },
 	visible: {

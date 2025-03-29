@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Header from "./components/Header/Header";
 import Hero from "./components/Hero/Hero";
 import Solution from "./components/Solution/Solution";
 import CoreTechnology from "./components/CoreTechnology/CoreTechnology";
-import SolutionProcess from "./components/SolutionProcess/SolutionProcess";
 import SuccessStories from "./components/SuccessStories/SuccessStories";
 import Contact from "./components/Contact/Contact";
 import EnvironmentalImpact from "./components/EnvironmentalImpact/EnvironmentalImpact";
@@ -233,7 +232,6 @@ const ScrollProgressBar = styled(motion.div)`
 
 function App() {
 	const [scrollProgress, setScrollProgress] = useState(0);
-	const [isInitialLoad, setIsInitialLoad] = useState(true);
 
 	// 스크롤 진행률 업데이트
 	useEffect(() => {
@@ -248,11 +246,6 @@ function App() {
 	}, []);
 
 	useEffect(() => {
-		// 초기 로딩 상태 처리
-		const timer = setTimeout(() => {
-			setIsInitialLoad(false);
-		}, 1500);
-
 		// 섹션 간 부드러운 전환을 위한 추가 설정
 		const observer = new IntersectionObserver(
 			(entries) => {
@@ -276,40 +269,12 @@ function App() {
 			sections.forEach((section) => {
 				observer.unobserve(section);
 			});
-			clearTimeout(timer);
 		};
 	}, []);
 
 	return (
 		<ThemeProvider theme={theme}>
 			<GlobalStyle />
-
-			<AnimatePresence>
-				{/* 스플래시 화면 */}
-				{isInitialLoad && (
-					<motion.div
-						initial={{ opacity: 1 }}
-						exit={{ opacity: 0 }}
-						transition={{ duration: 0.5 }}
-						style={{
-							position: "fixed",
-							top: 0,
-							left: 0,
-							right: 0,
-							bottom: 0,
-							backgroundColor: "#2D70F6",
-							display: "flex",
-							justifyContent: "center",
-							alignItems: "center",
-							zIndex: 9999,
-						}}
-					>
-						<motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 0.2, duration: 0.8 }}>
-							<img src="/logo.svg" alt="Zero1ne Logo" style={{ width: "180px", height: "auto" }} />
-						</motion.div>
-					</motion.div>
-				)}
-			</AnimatePresence>
 
 			<AppContainer>
 				<ScrollProgressContainer>

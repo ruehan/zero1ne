@@ -61,17 +61,6 @@ const SectionHeader = styled(motion.div)`
 	margin-bottom: 5rem;
 `;
 
-const SectionTag = styled(motion.div)`
-	display: inline-block;
-	background-color: rgba(13, 89, 50, 0.1);
-	color: #0d5932;
-	font-weight: 600;
-	font-size: 0.9rem;
-	padding: 6px 12px;
-	border-radius: 20px;
-	margin-bottom: 1rem;
-`;
-
 const SectionTitle = styled(motion.h2)`
 	font-size: 3rem;
 	font-weight: 800;
@@ -140,15 +129,6 @@ const CardHeader = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-end;
-`;
-
-const IconWrapper = styled(motion.div)`
-	position: absolute;
-	top: 30px;
-	right: 30px;
-	width: 64px;
-	height: 64px;
-	color: rgba(255, 255, 255, 0.8);
 `;
 
 const CardTitle = styled.h3`
@@ -262,18 +242,6 @@ const BarProgress = styled(motion.div)<{ value: number }>`
 	border-radius: 5px;
 `;
 
-// 애니메이션 변수
-const containerVariants: Variants = {
-	hidden: { opacity: 0 },
-	visible: {
-		opacity: 1,
-		transition: {
-			staggerChildren: 0.2,
-			delayChildren: 0.3,
-		},
-	},
-};
-
 const itemVariants: Variants = {
 	hidden: { opacity: 0, y: 30 },
 	visible: {
@@ -286,7 +254,6 @@ const itemVariants: Variants = {
 	},
 };
 
-// 원형 차트를 위한 애니메이션 변수
 const circleVariants: Variants = {
 	hidden: {
 		background: "conic-gradient(#0d5932 0deg, transparent 0deg)",
@@ -300,7 +267,6 @@ const circleVariants: Variants = {
 	}),
 };
 
-// 바 차트를 위한 애니메이션 변수
 const barVariants: Variants = {
 	hidden: { width: 0 },
 	visible: (value) => ({
@@ -310,24 +276,6 @@ const barVariants: Variants = {
 			ease: "easeOut",
 		},
 	}),
-};
-
-// 아이콘 애니메이션
-const iconVariants: Variants = {
-	hover: {
-		scale: 1.1,
-		y: -10,
-		rotate: [0, -5, 5, -5, 0],
-		transition: {
-			scale: { duration: 0.3 },
-			rotate: {
-				duration: 0.8,
-				ease: "easeInOut",
-				repeat: Infinity,
-				repeatType: "reverse",
-			},
-		},
-	},
 };
 
 const EnvironmentalImpact: React.FC = () => {

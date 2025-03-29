@@ -20,17 +20,6 @@ const SectionHeader = styled.div`
 	margin-bottom: 4rem;
 `;
 
-const SectionTag = styled(motion.div)`
-	display: inline-block;
-	background-color: rgba(52, 152, 219, 0.1);
-	color: #3498db;
-	font-weight: 600;
-	font-size: 0.9rem;
-	padding: 6px 12px;
-	border-radius: 20px;
-	margin-bottom: 15px;
-`;
-
 const SectionTitle = styled(motion.h2)`
 	font-size: 2.5rem;
 	color: #444;
@@ -150,17 +139,6 @@ const fadeInUp: Variants = {
 	},
 };
 
-const fadeIn: Variants = {
-	hidden: { opacity: 0 },
-	visible: {
-		opacity: 1,
-		transition: {
-			duration: 0.6,
-			ease: "easeInOut",
-		},
-	},
-};
-
 const resultsVariant: Variants = {
 	hidden: { opacity: 0, y: 30 },
 	visible: (i) => ({
@@ -224,9 +202,6 @@ const SuccessStories: React.FC = () => {
 		<SectionContainer>
 			<SectionInner ref={sectionRef}>
 				<SectionHeader>
-					<SectionTag variants={fadeInUp} initial="hidden" animate={controls}>
-						RESULT
-					</SectionTag>
 					<SectionTitle variants={fadeInUp} initial="hidden" animate={controls}>
 						도입 성공 사례
 					</SectionTitle>

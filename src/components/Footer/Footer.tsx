@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { motion } from "framer-motion";
 import { FacebookIcon, TwitterIcon, InstagramIcon, LinkedInIcon } from "../../assets/icons/SocialIcons";
 import { MapIcon, PhoneIcon, EmailIcon, ClockIcon } from "../../assets/icons/ContactIcons";
 
@@ -169,17 +168,15 @@ const LegalLink = styled.a`
 `;
 
 const Footer: React.FC = () => {
-	const currentYear = new Date().getFullYear();
-
 	return (
 		<FooterContainer>
 			<FooterInner>
 				<FooterGrid>
 					<FooterColumn>
 						<Logo>
-							<img src="/logo-white.svg" alt="제로원 로고" />
+							<img src="/logo-white.svg" alt="(주)제로원" />
 						</Logo>
-						<CompanyDescription>제로원은 유기성 폐기물 처리 솔루션을 통해 지속 가능한 미래를 만들어갑니다. 우리의 혁신적인 기술은 환경 오염을 줄이고 순환 경제를 촉진합니다.</CompanyDescription>
+						<CompanyDescription>제로원은 유기성 폐기물 처리 솔루션을 통해 지속 가능한 미래를 만들어갑니다. 제로원의 혁신적인 기술은 환경 오염을 줄이고 순환 경제를 촉진합니다.</CompanyDescription>
 						<SocialIcons>
 							<SocialIcon href="https://facebook.com" target="_blank" rel="noopener noreferrer">
 								<FacebookIcon color="#fff" width="20" height="20" />
@@ -237,13 +234,13 @@ const Footer: React.FC = () => {
 								<IconWrapper>
 									<PhoneIcon color="rgba(255, 255, 255, 0.9)" width="20" height="20" />
 								</IconWrapper>
-								<div>02-123-4567</div>
+								<div>Fax. 0303-3441-0101</div>
 							</ContactItem>
 							<ContactItem>
 								<IconWrapper>
 									<EmailIcon color="rgba(255, 255, 255, 0.9)" width="20" height="20" />
 								</IconWrapper>
-								<div>contact@zero1ne.com</div>
+								<div>zerone.khk@gmail.com</div>
 							</ContactItem>
 							<ContactItem>
 								<IconWrapper>
@@ -258,7 +255,7 @@ const Footer: React.FC = () => {
 				<Divider />
 
 				<Copyright>
-					<div>© {currentYear} 제로원. All rights reserved.</div>
+					<div> Copyright © 2025 ZERO ONE Inc. All right reserved</div>
 					<LegalLinks>
 						<LegalLink href="#">개인정보처리방침</LegalLink>
 						<LegalLink href="#">이용약관</LegalLink>

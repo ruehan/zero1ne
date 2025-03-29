@@ -43,12 +43,12 @@ const CloseButton = styled.button`
 	transition: color 0.2s;
 
 	&:hover {
-		color: #0d5932;
+		color: #2563eb;
 	}
 `;
 
 const ModalTitle = styled.h2`
-	color: #0d5932;
+	color: #2563eb;
 	margin-bottom: 16px;
 `;
 
@@ -71,7 +71,7 @@ const Input = styled.input`
 
 	&:focus {
 		outline: none;
-		border-color: #0d5932;
+		border-color: #2563eb;
 	}
 `;
 
@@ -86,12 +86,12 @@ const TextArea = styled.textarea`
 
 	&:focus {
 		outline: none;
-		border-color: #0d5932;
+		border-color: #2563eb;
 	}
 `;
 
 const SubmitButton = styled.button`
-	background: #0d5932;
+	background: #2563eb;
 	color: white;
 	border: none;
 	padding: 12px 24px;
@@ -102,7 +102,7 @@ const SubmitButton = styled.button`
 	transition: background 0.2s;
 
 	&:hover {
-		background: #0a4527;
+		background: #1d4ed8;
 	}
 `;
 
