@@ -202,7 +202,7 @@ const Contact: React.FC = () => {
 	const isInView = useInView(sectionRef, { once: false, amount: 0.2 });
 	const [modalOpen, setModalOpen] = useState(false);
 
-	const position: [number, number] = [36.7125, 127.4385];
+	// const position: [number, number] = [36.7125, 127.4385];
 
 	React.useEffect(() => {
 		if (isInView) {
