@@ -90,7 +90,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ position, popupText }) => {
 	const [latitude, longitude] = position;
 
 	// 구글 지도 Embed API URL 생성
-	const googleMapsUrl = `https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=제로원,충청북도+청주시+청원구+오창읍+양청송대길+10&zoom=16&language=ko`;
+	const googleMapsUrl = `https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=제로원,충청북도+청주시+청원구+오창읍+양청송대길+10&zoom=18&language=ko`;
 
 	try {
 		return (
