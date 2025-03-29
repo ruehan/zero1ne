@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import { motion, useAnimation, Variants } from "framer-motion";
 import techImage from "../../assets/images/visual_02.png";
+import ContactModal from "../Modal/ContactModal";
 
 // 스타일드 컴포넌트
 const HeroSection = styled.section`
@@ -265,11 +266,20 @@ const pulseAnimation = {
 
 const Hero: React.FC = () => {
 	const controls = useAnimation();
+	const [modalOpen, setModalOpen] = useState(false);
 
-	// 애니메이션 시작
 	useEffect(() => {
 		controls.start("visible");
 	}, [controls]);
+
+	const handleSolutionClick = () => {
+		// 솔루션 섹션으로 스크롤
+		document.getElementById("solution")?.scrollIntoView({ behavior: "smooth" });
+	};
+
+	const handleContactClick = () => {
+		setModalOpen(true);
+	};
 
 	return (
 		<HeroSection id="hero">
@@ -301,11 +311,11 @@ const Hero: React.FC = () => {
 					</Description>
 
 					<ButtonContainer variants={staggerChildren} initial="hidden" animate={controls} transition={{ delay: 0.4 }}>
-						<PrimaryButton variants={fadeIn} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+						<PrimaryButton variants={fadeIn} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={handleSolutionClick}>
 							솔루션 알아보기
 						</PrimaryButton>
 
-						<SecondaryButton variants={fadeIn} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+						<SecondaryButton variants={fadeIn} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={handleContactClick}>
 							무료 상담 신청
 						</SecondaryButton>
 					</ButtonContainer>
@@ -352,6 +362,8 @@ const Hero: React.FC = () => {
 					</svg>
 				</ScrollDownIcon>
 			</ScrollDownLink>
+
+			<ContactModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
 		</HeroSection>
 	);
 };

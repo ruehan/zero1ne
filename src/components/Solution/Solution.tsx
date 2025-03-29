@@ -1,12 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { motion, useAnimation, useInView, Variants } from "framer-motion";
-import RecycleIcon from "../../assets/icons/RecycleIcon";
-import MonitorIcon from "../../assets/icons/MonitorIcon";
-import ConsultIcon from "../../assets/icons/ConsultIcon";
 import solution1 from "../../assets/images/solution1.jpg";
 import solution2 from "../../assets/images/solution2.jpg";
 import solution3 from "../../assets/images/solution3.jpg";
+import ContactModal from "../Modal/ContactModal";
 
 // 솔루션 데이터
 const solutionsData = [
@@ -242,6 +240,7 @@ const Solution: React.FC = () => {
 	const controls = useAnimation();
 	const sectionRef = useRef(null);
 	const isInView = useInView(sectionRef, { once: true, amount: 0.3 });
+	const [modalOpen, setModalOpen] = useState(false);
 
 	useEffect(() => {
 		if (isInView) {
@@ -296,11 +295,13 @@ const Solution: React.FC = () => {
 				</CardsContainer>
 
 				<CTAContainer variants={fadeInUp} initial="hidden" animate={controls} transition={{ delay: 0.6 }}>
-					<CTAButton whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+					<CTAButton whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => setModalOpen(true)}>
 						맞춤형 솔루션 문의하기
 					</CTAButton>
 				</CTAContainer>
 			</SectionInner>
+
+			<ContactModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
 		</SectionContainer>
 	);
 };

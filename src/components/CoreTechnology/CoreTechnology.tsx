@@ -1,10 +1,11 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { motion, useAnimation, useInView, Variants } from "framer-motion";
 import DambiIcon from "../../assets/icons/DambiIcon";
 import SeulmoIcon from "../../assets/icons/SeulmoIcon";
 import dambiImage from "../../assets/images/products/dambi.jpg";
 import sslmoImage from "../../assets/images/products/sslmo.jpg";
+import ContactModal from "../Modal/ContactModal";
 
 // 스타일드 컴포넌트
 const SectionContainer = styled.section`
@@ -197,10 +198,10 @@ const LearnMoreLink = styled(motion.a)`
 
 const SynergySection = styled(motion.div)`
 	text-align: center;
-	margin: 4rem 0;
-	padding: 2rem;
-	background-color: rgba(13, 89, 50, 0.05);
-	border-radius: 1rem;
+	padding: 3rem 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 `;
 
 const SynergyTitle = styled.h3`
@@ -221,8 +222,8 @@ const CTAButton = styled(motion.button)`
 	background-color: #0d5932;
 	color: white;
 	border: none;
-	padding: 1rem 2rem;
-	font-size: 1.1rem;
+	padding: 1.2rem 2.5rem;
+	font-size: 1.2rem;
 	font-weight: 600;
 	border-radius: 0.5rem;
 	cursor: pointer;
@@ -277,6 +278,7 @@ const CoreTechnology: React.FC = () => {
 	const controls = useAnimation();
 	const sectionRef = useRef(null);
 	const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
+	const [modalOpen, setModalOpen] = useState(false);
 
 	useEffect(() => {
 		if (isInView) {
@@ -372,17 +374,13 @@ const CoreTechnology: React.FC = () => {
 				</CardsContainer>
 
 				<SynergySection variants={fadeInUp} initial="hidden" animate={controls} transition={{ delay: 0.8 }}>
-					<SynergyTitle>시너지 효과</SynergyTitle>
-					<SynergyText>
-						'담비'와 '쓸모'를 함께 활용하면 식품 폐기물 처리부터 재활용까지 완벽한 순환 체계를 구축할 수 있습니다. 현장에서 즉시 처리하여 운반 비용을 줄이고, 처리된 폐기물은 새로운 자원으로 재탄생하여
-						경제적 가치를 창출하는 동시에 환경 보호에 기여합니다. 제로원의 토탈 솔루션으로 폐기물 발생부터 최종 처리까지 효율적이고 지속가능한 방식으로 관리하세요.
-					</SynergyText>
-
-					<CTAButton whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+					<CTAButton whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => setModalOpen(true)}>
 						솔루션 상담 받기
 					</CTAButton>
 				</SynergySection>
 			</SectionInner>
+
+			<ContactModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
 		</SectionContainer>
 	);
 };

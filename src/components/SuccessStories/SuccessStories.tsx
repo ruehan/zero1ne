@@ -224,9 +224,6 @@ const SuccessStories: React.FC = () => {
 		<SectionContainer>
 			<SectionInner ref={sectionRef}>
 				<SectionHeader>
-					<SectionTag variants={fadeInUp} initial="hidden" animate={controls}>
-						RESULT
-					</SectionTag>
 					<SectionTitle variants={fadeInUp} initial="hidden" animate={controls}>
 						도입 성공 사례
 					</SectionTitle>

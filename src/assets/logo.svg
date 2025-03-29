@@ -1,5 +1,11 @@
-<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M2 10L16 2L30 10L16 18L2 10Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
-  <path d="M16 18L16 30" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-  <path d="M30 10V22L16 30" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-</svg> 
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+ "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+ width="259.000000pt" height="60.000000pt" viewBox="0 0 259.000000 60.000000"
+ preserveAspectRatio="xMidYMid meet">
+
+<g transform="translate(0.000000,60.000000) scale(0.100000,-0.100000)"
+fill="#000000" stroke="none">
+</g>
+</svg>

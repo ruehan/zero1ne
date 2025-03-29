@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
 import styled from "styled-components";
 import ContactModal from "../Modal/ContactModal";
-import { ReactComponent as Logo } from "../../assets/logo.svg";
+import logoImage from "../../assets/logo.png";
 
 // 스타일드 컴포넌트
 const HeaderContainer = styled(motion.header)<{ scrolled: boolean }>`
@@ -33,11 +33,13 @@ const LogoContainer = styled(motion.div)`
 	cursor: pointer;
 `;
 
-const LogoIcon = styled(Logo)`
-	height: 32px;
+const LogoIcon = styled.img<{ scrolled: boolean }>`
+	height: 45px;
 	width: auto;
 	margin-right: 8px;
-	color: ${(props) => props.color || "#ffffff"};
+	filter: ${({ scrolled }) =>
+		scrolled ? "brightness(0) saturate(100%) invert(25%) sepia(94%) saturate(526%) hue-rotate(107deg) brightness(95%) contrast(90%)" : "brightness(0) saturate(100%) invert(100%)"};
+	transition: filter 0.3s ease;
 `;
 
 const LogoText = styled.span<{ scrolled: boolean }>`
@@ -270,8 +272,7 @@ const Header: React.FC = () => {
 		<>
 			<HeaderContainer scrolled={scrolled} initial={{ y: -100, opacity: 0 }} animate={controls}>
 				<LogoContainer whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-					<LogoIcon color={scrolled ? "#0d5932" : "#ffffff"} />
-					<LogoText scrolled={scrolled}>ZERO ONE Inc.</LogoText>
+					<LogoIcon src={logoImage} scrolled={scrolled} />
 				</LogoContainer>
 
 				<NavContainer>

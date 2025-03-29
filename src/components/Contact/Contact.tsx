@@ -1,7 +1,8 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import { motion, useAnimation, useInView } from "framer-motion";
-// import MapComponent from "./MapComponent";
+import MapComponent from "./MapComponent";
+import ContactModal from "../Modal/ContactModal";
 
 // 스타일드 컴포넌트
 const ContactSection = styled.section`
@@ -211,6 +212,7 @@ const Contact: React.FC = () => {
 	const controls = useAnimation();
 	const sectionRef = useRef(null);
 	const isInView = useInView(sectionRef, { once: false, amount: 0.2 });
+	const [modalOpen, setModalOpen] = useState(false);
 
 	const position: [number, number] = [36.7125, 127.4385];
 
@@ -221,8 +223,7 @@ const Contact: React.FC = () => {
 	}, [controls, isInView]);
 
 	const handleContactClick = () => {
-		// 문의하기 버튼 클릭 시 처리 로직
-		alert("문의하기가 클릭되었습니다. 여기에 모달 또는 폼 표시 로직을 추가하세요.");
+		setModalOpen(true);
 	};
 
 	// 애니메이션 변수
@@ -314,10 +315,12 @@ const Contact: React.FC = () => {
 					</ContactInfo>
 
 					<MapWrapper initial="hidden" animate={controls} variants={rightAnimation}>
-						{/* <MapComponent position={position} popupText="제로원 <br /> 충청북도 청주시 청원구 오창읍 양청송대길 10, 308호" /> */}
+						<MapComponent position={position} popupText="제로원 <br /> 충청북도 청주시 청원구 오창읍 양청송대길 10, 308호" />
 					</MapWrapper>
 				</ContactContent>
 			</ContactInner>
+
+			<ContactModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
 		</ContactSection>
 	);
 };
