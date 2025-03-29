@@ -133,7 +133,7 @@ const CardText = styled.div`
 `;
 
 const CTAButton = styled(motion.button)`
-	background: linear-gradient(90deg, #1a2a6c 0%, #b21f1f 100%);
+	background: linear-gradient(90deg, #1e40af 0%, #3b82f6 100%);
 	border: none;
 	padding: 16px 32px;
 	border-radius: 8px;
@@ -143,11 +143,11 @@ const CTAButton = styled(motion.button)`
 	cursor: pointer;
 	margin-top: 30px;
 	transition: all 0.3s ease;
-	box-shadow: 0 4px 15px rgba(26, 42, 108, 0.3);
+	box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
 
 	&:hover {
 		transform: translateY(-2px);
-		box-shadow: 0 8px 20px rgba(26, 42, 108, 0.4);
+		box-shadow: 0 8px 20px rgba(37, 99, 235, 0.5);
 	}
 `;
 

@@ -158,7 +158,7 @@ const CTAContainer = styled(motion.div)`
 `;
 
 const CTAButton = styled(motion.button)`
-	background-color: #0d5932;
+	background-color: #2563eb;
 	color: white;
 	border: none;
 	padding: 1rem 2rem;
@@ -166,13 +166,13 @@ const CTAButton = styled(motion.button)`
 	font-weight: 600;
 	border-radius: 0.5rem;
 	cursor: pointer;
-	box-shadow: 0 4px 10px rgba(13, 89, 50, 0.2);
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 	transition: transform 0.2s, box-shadow 0.2s;
 
 	&:hover {
-		background-color: #0a4527;
+		background-color: #1d4ed8;
 		transform: translateY(-2px);
-		box-shadow: 0 6px 15px rgba(13, 89, 50, 0.3);
+		box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 	}
 `;
 

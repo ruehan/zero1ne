@@ -125,23 +125,26 @@ const Button = styled(motion.button)`
 `;
 
 const PrimaryButton = styled(Button)`
-	background-color: #0d5932;
+	background-color: #2563eb;
 	color: white;
-	box-shadow: 0 4px 10px rgba(13, 89, 50, 0.3);
+	border: 2px solid #fff;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 
 	&:hover {
-		background-color: #0a4527;
-		box-shadow: 0 6px 15px rgba(13, 89, 50, 0.4);
+		background-color: #1d4ed8;
+		box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
 	}
 `;
 
 const SecondaryButton = styled(Button)`
-	background-color: transparent;
+	background-color: rgba(255, 255, 255, 0.15);
 	color: white;
-	border: 2px solid white;
+	border: 2px solid #fff;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 
 	&:hover {
-		background-color: rgba(255, 255, 255, 0.1);
+		background-color: rgba(255, 255, 255, 0.25);
+		box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 	}
 `;
 
