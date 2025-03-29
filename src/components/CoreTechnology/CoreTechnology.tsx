@@ -248,101 +248,102 @@ const CoreTechnology: React.FC = () => {
 	}, [controls, isInView]);
 
 	return (
-		<SectionContainer ref={sectionRef}>
-			<SectionInner>
-				<SectionHeader variants={fadeInUp} initial="hidden" animate={controls}>
-					<SectionTitle>핵심 기술 솔루션</SectionTitle>
-					<SectionDescription>
-						제로원의 혁신적인 기술력으로 탄생한 식품 폐기물 처리 솔루션 '담비'와 '쓸모'를 소개합니다. 현장에서 발생하는 유기성 폐기물을 효율적으로 처리하고 자원화하는 제로원의 솔루션을 경험하세요.
-					</SectionDescription>
-				</SectionHeader>
+		<>
+			<SectionContainer ref={sectionRef}>
+				<SectionInner>
+					<SectionHeader variants={fadeInUp} initial="hidden" animate={controls}>
+						<SectionTitle>핵심 기술 솔루션</SectionTitle>
+						<SectionDescription>
+							제로원의 혁신적인 기술력으로 탄생한 식품 폐기물 처리 솔루션 '담비'와 '쓸모'를 소개합니다. 현장에서 발생하는 유기성 폐기물을 효율적으로 처리하고 자원화하는 제로원의 솔루션을 경험하세요.
+						</SectionDescription>
+					</SectionHeader>
 
-				<CardsContainer>
-					<ProductCard variants={fadeInRight} initial="hidden" animate={controls} transition={{ delay: 0.2 }}>
-						<ProductImageContainer>
-							<ProductImage src={dambiImage} alt="담비 - 고속 감량기" />
-							<ImageOverlay>
-								<ProductName>담비</ProductName>
-								<ProductSubtitle>고속 감량기</ProductSubtitle>
-							</ImageOverlay>
-						</ProductImageContainer>
+					<CardsContainer>
+						<ProductCard variants={fadeInRight} initial="hidden" animate={controls} transition={{ delay: 0.2 }}>
+							<ProductImageContainer>
+								<ProductImage src={dambiImage} alt="담비 - 고속 감량기" />
+								<ImageOverlay>
+									<ProductName>담비</ProductName>
+									<ProductSubtitle>고속 감량기</ProductSubtitle>
+								</ImageOverlay>
+							</ProductImageContainer>
 
-						<ProductContent>
-							<ProductDescription>
-								'담비'는 식품 폐기물 발생 현장에서 직접 처리할 수 있는 고속 감량 시스템입니다. 특허받은 기술을 바탕으로 수분 증발 방식을 통해 폐기물의 부피와 무게를 최대 90%까지 줄이며, 악취와 위생
-								문제를 해결합니다.
-							</ProductDescription>
+							<ProductContent>
+								<ProductDescription>
+									'담비'는 식품 폐기물 발생 현장에서 직접 처리할 수 있는 고속 감량 시스템입니다. 특허받은 기술을 바탕으로 수분 증발 방식을 통해 폐기물의 부피와 무게를 최대 90%까지 줄이며, 악취와 위생
+									문제를 해결합니다.
+								</ProductDescription>
 
-							<FeaturesTitle>주요 특징</FeaturesTitle>
+								<FeaturesTitle>주요 특징</FeaturesTitle>
 
-							<FeaturesList>
-								<FeatureItem variants={fadeInUp} animate={controls} transition={{ delay: 0.4 }}>
-									반영구적 촉매로 우수한 분해력
-								</FeatureItem>
-								<FeatureItem variants={fadeInUp} animate={controls} transition={{ delay: 0.5 }}>
-									폐기물 발생지에서 직접 처리
-								</FeatureItem>
-								<FeatureItem variants={fadeInUp} animate={controls} transition={{ delay: 0.6 }}>
-									악취 제거 및 해충 발생 방지 효과
-								</FeatureItem>
-								<FeatureItem variants={fadeInUp} animate={controls} transition={{ delay: 0.7 }}>
-									무배출 관리 시스템
-								</FeatureItem>
-							</FeaturesList>
+								<FeaturesList>
+									<FeatureItem variants={fadeInUp} animate={controls} transition={{ delay: 0.4 }}>
+										반영구적 촉매로 우수한 분해력
+									</FeatureItem>
+									<FeatureItem variants={fadeInUp} animate={controls} transition={{ delay: 0.5 }}>
+										폐기물 발생지에서 직접 처리
+									</FeatureItem>
+									<FeatureItem variants={fadeInUp} animate={controls} transition={{ delay: 0.6 }}>
+										악취 제거 및 해충 발생 방지 효과
+									</FeatureItem>
+									<FeatureItem variants={fadeInUp} animate={controls} transition={{ delay: 0.7 }}>
+										무배출 관리 시스템
+									</FeatureItem>
+								</FeaturesList>
 
-							<LearnMoreLink href="#dambi" whileHover={{ x: 5 }} whileTap={{ scale: 0.95 }}>
-								자세히 알아보기
-							</LearnMoreLink>
-						</ProductContent>
-					</ProductCard>
+								<LearnMoreLink href="#dambi" whileHover={{ x: 5 }} whileTap={{ scale: 0.95 }}>
+									자세히 알아보기
+								</LearnMoreLink>
+							</ProductContent>
+						</ProductCard>
 
-					<ProductCard variants={fadeInLeft} initial="hidden" animate={controls} transition={{ delay: 0.3 }}>
-						<ProductImageContainer>
-							<ProductImage src={sslmoImage} alt="쓸모 - 위탁 처리 서비스" />
-							<ImageOverlay>
-								<ProductName>쓸모</ProductName>
-								<ProductSubtitle>위탁 처리 서비스</ProductSubtitle>
-							</ImageOverlay>
-						</ProductImageContainer>
+						<ProductCard variants={fadeInLeft} initial="hidden" animate={controls} transition={{ delay: 0.3 }}>
+							<ProductImageContainer>
+								<ProductImage src={sslmoImage} alt="쓸모 - 위탁 처리 서비스" />
+								<ImageOverlay>
+									<ProductName>쓸모</ProductName>
+									<ProductSubtitle>위탁 처리 서비스</ProductSubtitle>
+								</ImageOverlay>
+							</ProductImageContainer>
 
-						<ProductContent>
-							<ProductDescription>
-								'쓸모'는 폐기물을 수거하여 자원으로 재활용하는 종합 위탁 처리 서비스입니다. 정기적인 수거 일정을 제공하고, 처리된 폐기물을 바이오가스, 비료 등으로 재활용하여 순환 경제를 실현합니다.
-							</ProductDescription>
+							<ProductContent>
+								<ProductDescription>
+									'쓸모'는 폐기물을 수거하여 자원으로 재활용하는 종합 위탁 처리 서비스입니다. 정기적인 수거 일정을 제공하고, 처리된 폐기물을 바이오가스, 비료 등으로 재활용하여 순환 경제를 실현합니다.
+								</ProductDescription>
 
-							<FeaturesTitle>주요 특징</FeaturesTitle>
+								<FeaturesTitle>주요 특징</FeaturesTitle>
 
-							<FeaturesList>
-								<FeatureItem variants={fadeInUp} animate={controls} transition={{ delay: 0.4 }}>
-									정기적인 수거 일정 및 맞춤형 서비스
-								</FeatureItem>
-								<FeatureItem variants={fadeInUp} animate={controls} transition={{ delay: 0.5 }}>
-									실시간 수거 현황 및 처리 과정 모니터링
-								</FeatureItem>
-								<FeatureItem variants={fadeInUp} animate={controls} transition={{ delay: 0.6 }}>
-									감량된 폐기물의 자원화 처리
-								</FeatureItem>
-								<FeatureItem variants={fadeInUp} animate={controls} transition={{ delay: 0.7 }}>
-									환경 규제 준수
-								</FeatureItem>
-							</FeaturesList>
+								<FeaturesList>
+									<FeatureItem variants={fadeInUp} animate={controls} transition={{ delay: 0.4 }}>
+										정기적인 수거 일정 및 맞춤형 서비스
+									</FeatureItem>
+									<FeatureItem variants={fadeInUp} animate={controls} transition={{ delay: 0.5 }}>
+										실시간 수거 현황 및 처리 과정 모니터링
+									</FeatureItem>
+									<FeatureItem variants={fadeInUp} animate={controls} transition={{ delay: 0.6 }}>
+										감량된 폐기물의 자원화 처리
+									</FeatureItem>
+									<FeatureItem variants={fadeInUp} animate={controls} transition={{ delay: 0.7 }}>
+										환경 규제 준수
+									</FeatureItem>
+								</FeaturesList>
 
-							<LearnMoreLink href="#seulmo" whileHover={{ x: 5 }} whileTap={{ scale: 0.95 }}>
-								자세히 알아보기
-							</LearnMoreLink>
-						</ProductContent>
-					</ProductCard>
-				</CardsContainer>
+								<LearnMoreLink href="#seulmo" whileHover={{ x: 5 }} whileTap={{ scale: 0.95 }}>
+									자세히 알아보기
+								</LearnMoreLink>
+							</ProductContent>
+						</ProductCard>
+					</CardsContainer>
 
-				<SynergySection variants={fadeInUp} initial="hidden" animate={controls} transition={{ delay: 0.8 }}>
-					<CTAButton whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => setModalOpen(true)}>
-						솔루션 상담 받기
-					</CTAButton>
-				</SynergySection>
-			</SectionInner>
-
+					<SynergySection variants={fadeInUp} initial="hidden" animate={controls} transition={{ delay: 0.8 }}>
+						<CTAButton whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => setModalOpen(true)}>
+							솔루션 상담 받기
+						</CTAButton>
+					</SynergySection>
+				</SectionInner>
+			</SectionContainer>
 			<ContactModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
-		</SectionContainer>
+		</>
 	);
 };
 

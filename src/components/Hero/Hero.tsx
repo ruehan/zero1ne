@@ -322,61 +322,62 @@ const Hero: React.FC = () => {
 	}, []);
 
 	return (
-		<HeroSection id="hero">
-			<GradientOverlay />
+		<>
+			<HeroSection id="hero">
+				<GradientOverlay />
 
-			<HeroContent>
-				<LeftContent>
-					<Headline>
-						식품 폐기물의 <br />
-						<TextHighlight>순환 경제</TextHighlight> 구축
-					</Headline>
+				<HeroContent>
+					<LeftContent>
+						<Headline>
+							식품 폐기물의 <br />
+							<TextHighlight>순환 경제</TextHighlight> 구축
+						</Headline>
 
-					<Description>
-						제로원은 첨단 기술을 활용하여 식품 폐기물을 자원으로 변환합니다. 친환경적이고 지속 가능한 방식으로 순환 경제를 구현하며 환경 보호와 경제적 이익을 동시에 제공합니다.
-					</Description>
+						<Description>
+							제로원은 첨단 기술을 활용하여 식품 폐기물을 자원으로 변환합니다. 친환경적이고 지속 가능한 방식으로 순환 경제를 구현하며 환경 보호와 경제적 이익을 동시에 제공합니다.
+						</Description>
 
-					<ButtonContainer>
-						<PrimaryButton onClick={handleSolutionClick}>솔루션 알아보기</PrimaryButton>
+						<ButtonContainer>
+							<PrimaryButton onClick={handleSolutionClick}>솔루션 알아보기</PrimaryButton>
 
-						<SecondaryButton onClick={handleContactClick}>무료 상담 신청</SecondaryButton>
-					</ButtonContainer>
+							<SecondaryButton onClick={handleContactClick}>무료 상담 신청</SecondaryButton>
+						</ButtonContainer>
 
-					<StatsContainer>
-						<StatItem>
-							<StatValue>85%</StatValue>
-							<StatLabel>자원 재활용률</StatLabel>
-						</StatItem>
+						<StatsContainer>
+							<StatItem>
+								<StatValue>85%</StatValue>
+								<StatLabel>자원 재활용률</StatLabel>
+							</StatItem>
 
-						<StatItem>
-							<StatValue>30%</StatValue>
-							<StatLabel>운영 비용 절감</StatLabel>
-						</StatItem>
-					</StatsContainer>
-				</LeftContent>
+							<StatItem>
+								<StatValue>30%</StatValue>
+								<StatLabel>운영 비용 절감</StatLabel>
+							</StatItem>
+						</StatsContainer>
+					</LeftContent>
 
-				<RightContent>
-					<VideoContainer>
-						<VideoWrapper>
-							<YouTube videoId="KZTcZZHada0" opts={opts} onReady={onReady} />
-						</VideoWrapper>
-						<VideoGlow />
-					</VideoContainer>
-				</RightContent>
-			</HeroContent>
+					<RightContent>
+						<VideoContainer>
+							<VideoWrapper>
+								<YouTube videoId="KZTcZZHada0" opts={opts} onReady={onReady} />
+							</VideoWrapper>
+							<VideoGlow />
+						</VideoContainer>
+					</RightContent>
+				</HeroContent>
 
-			{/* 스크롤 다운 인디케이터 */}
-			<ScrollDownLink href="#solution">
-				<ScrollText>더 알아보기</ScrollText>
-				<ScrollDownIcon>
-					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-						<path d="M12 5v14M5 12l7 7 7-7" />
-					</svg>
-				</ScrollDownIcon>
-			</ScrollDownLink>
-
+				{/* 스크롤 다운 인디케이터 */}
+				<ScrollDownLink href="#solution">
+					<ScrollText>더 알아보기</ScrollText>
+					<ScrollDownIcon>
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+							<path d="M12 5v14M5 12l7 7 7-7" />
+						</svg>
+					</ScrollDownIcon>
+				</ScrollDownLink>
+			</HeroSection>
 			<ContactModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
-		</HeroSection>
+		</>
 	);
 };
 

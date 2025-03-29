@@ -214,60 +214,61 @@ const Solution: React.FC = () => {
 	}, [controls, isInView]);
 
 	return (
-		<SectionContainer ref={sectionRef}>
-			<SectionInner>
-				<SectionHeader variants={fadeInUp} initial="hidden" animate={controls}>
-					<SectionTitle>ZERO ONE SOLUTION</SectionTitle>
-					<SectionDescription>유기성 폐기물을 자원화하기 위한 제로원의 솔루션</SectionDescription>
-				</SectionHeader>
+		<>
+			<SectionContainer ref={sectionRef}>
+				<SectionInner>
+					<SectionHeader variants={fadeInUp} initial="hidden" animate={controls}>
+						<SectionTitle>ZERO ONE SOLUTION</SectionTitle>
+						<SectionDescription>유기성 폐기물을 자원화하기 위한 제로원의 솔루션</SectionDescription>
+					</SectionHeader>
 
-				<CardsContainer>
-					{solutionsData.map((solution, index) => {
-						return (
-							<SolutionCard
-								key={solution.id}
-								variants={{
-									...fadeInUp,
-									rest: cardHover.rest,
-									hover: cardHover.hover,
-								}}
-								initial="hidden"
-								animate={controls}
-								transition={{ delay: index * 0.2 }}
-								whileHover="hover"
-							>
-								<CardImage image={solution.image}></CardImage>
+					<CardsContainer>
+						{solutionsData.map((solution, index) => {
+							return (
+								<SolutionCard
+									key={solution.id}
+									variants={{
+										...fadeInUp,
+										rest: cardHover.rest,
+										hover: cardHover.hover,
+									}}
+									initial="hidden"
+									animate={controls}
+									transition={{ delay: index * 0.2 }}
+									whileHover="hover"
+								>
+									<CardImage image={solution.image}></CardImage>
 
-								<CardContent>
-									<CardTitle>{solution.title}</CardTitle>
-									<CardDescription>{solution.description}</CardDescription>
+									<CardContent>
+										<CardTitle>{solution.title}</CardTitle>
+										<CardDescription>{solution.description}</CardDescription>
 
-									<BenefitsList>
-										{solution.benefits.map((benefit, i) => (
-											<BenefitItem key={i} variants={fadeInUp} initial="hidden" animate={controls} transition={{ delay: 0.3 + index * 0.1 + i * 0.05 }}>
-												{benefit}
-											</BenefitItem>
-										))}
-									</BenefitsList>
+										<BenefitsList>
+											{solution.benefits.map((benefit, i) => (
+												<BenefitItem key={i} variants={fadeInUp} initial="hidden" animate={controls} transition={{ delay: 0.3 + index * 0.1 + i * 0.05 }}>
+													{benefit}
+												</BenefitItem>
+											))}
+										</BenefitsList>
 
-									<LearnMoreLink href={`#${solution.id}`} whileHover={{ x: 5 }} whileTap={{ scale: 0.95 }}>
-										자세히 알아보기
-									</LearnMoreLink>
-								</CardContent>
-							</SolutionCard>
-						);
-					})}
-				</CardsContainer>
+										<LearnMoreLink href={`#${solution.id}`} whileHover={{ x: 5 }} whileTap={{ scale: 0.95 }}>
+											자세히 알아보기
+										</LearnMoreLink>
+									</CardContent>
+								</SolutionCard>
+							);
+						})}
+					</CardsContainer>
 
-				<CTAContainer variants={fadeInUp} initial="hidden" animate={controls} transition={{ delay: 0.6 }}>
-					<CTAButton whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => setModalOpen(true)}>
-						맞춤형 솔루션 문의하기
-					</CTAButton>
-				</CTAContainer>
-			</SectionInner>
-
+					<CTAContainer variants={fadeInUp} initial="hidden" animate={controls} transition={{ delay: 0.6 }}>
+						<CTAButton whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => setModalOpen(true)}>
+							맞춤형 솔루션 문의하기
+						</CTAButton>
+					</CTAContainer>
+				</SectionInner>
+			</SectionContainer>
 			<ContactModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
-		</SectionContainer>
+		</>
 	);
 };
 
